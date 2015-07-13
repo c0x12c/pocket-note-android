@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Preference fragment padding, bottom -->
+    <dimen name="preference_fragment_padding_bottom">0dp</dimen>
+
+    <!-- Preference fragment padding, sides -->
+    <dimen name="preference_fragment_padding_side">16dp</dimen>
+
+    <integer name="preference_fragment_scrollbarStyle">0x02000000</integer>
+    <!-- outsideOverlay -->
+
+    <dimen name="button_text_size">16sp</dimen>
+    <dimen name="reminder_text_title_size">14sp</dimen>
+    <dimen name="reminder_dropdown_text_size">16sp</dimen>
+    <dimen name="reminder_button_pick_text_size">14sp</dimen>
+
+    <dimen name="settings_header_text_size">14sp</dimen>
+    <dimen name="settings_title_text_size">14sp</dimen>
+    <dimen name="settings_description_text_size">10sp</dimen>
+</resources>

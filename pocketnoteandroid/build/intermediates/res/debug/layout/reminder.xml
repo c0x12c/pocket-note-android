@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="@color/aluminum6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/aluminum6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <TextView
+                android:id="@+id/reminder_$_textview_type"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/reminder_text_title_size"
+                android:layout_height="wrap_content"
+                android:text="Type"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/ic_icon_tiny_alert"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:clickable="true"
+                android:background="@android:drawable/list_selector_background"
+                />
+
+
+        <Spinner
+                android:id="@+id/reminder_$_spinner_type"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                />
+
+        <ViewFlipper
+                android:id="@+id/reminder_$_spinner_god_father"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <!-- 0. All day -->
+            <LinearLayout
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="When"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/reminder_text_title_size"
+                        android:textColor="#FFFFFF"
+                        />
+
+                <Spinner
+                        android:id="@+id/reminder_$_spinner_all_day_when"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+
+                <Button
+                        android:id="@+id/reminder_$_button_pick_a_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/calendar_purple_button"
+                        android:drawableLeft="@drawable/ic_action_content_event"
+                        android:text="Thursday, May 22, 2014"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:shadowColor="#000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="2"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        />
+
+                <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repetition"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/reminder_text_title_size"
+                        android:textColor="#FFFFFF"
+                        />
+
+                <Spinner
+                        android:id="@+id/reminder_$_spinner_all_day_repetition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                <TextView
+                        android:id="@+id/reminder_$_textview_all_day_pick_end_date"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ends"
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/reminder_text_title_size"
+                        android:textColor="#FFFFFF"
+                        />
+
+                <Button
+                        android:id="@+id/reminder_$_button_all_day_pick_end_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/calendar_purple_button"
+                        android:drawableLeft="@drawable/ic_action_content_event"
+                        android:text="Thursday, May 22, 2014"
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:shadowColor="#000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="2"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        />
+
+
+            </LinearLayout>
+
+            <!-- 1.Time Alarm -->
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="When"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/reminder_text_title_size"
+                        android:textColor="#FFFFFF"
+                        />
+
+                <Spinner
+                        android:id="@+id/reminder_$_spinner_time_alarm_when"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+
+                <Button
+                        android:id="@+id/reminder_$_button_time_alarm_pick_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/calendar_purple_button"
+                        android:drawableLeft="@drawable/ic_action_content_event"
+                        android:text="Thursday, May 22, 2014"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:shadowColor="#000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="2"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        />
+
+                <Button
+                        android:id="@+id/reminder_$_button_time_alarm_pick_time"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/calendar_purple_button"
+                        android:drawableLeft="@drawable/ic_action_content_event"
+                        android:text="11:31 AM"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:shadowColor="#000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="2"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        />
+
+
+                <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repetition"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/reminder_text_title_size"
+                        android:textColor="#FFFFFF"
+                        />
+
+                <Spinner
+                        android:id="@+id/reminder_$_spinner_time_alarm_repetition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                <TextView
+                        android:id="@+id/reminder_$_textview_time_alarm_pick_end_date"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ends"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/reminder_dropdown_text_size"
+                        android:textColor="#FFFFFF"
+                        />
+
+                <Button
+                        android:id="@+id/reminder_$_button_time_alarm_pick_end_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/calendar_purple_button"
+                        android:drawableLeft="@drawable/ic_action_content_event"
+                        android:text="Never"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:shadowColor="#000000"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="2"
+                        android:gravity="center"
+                        android:padding="1dp"
+                        />
+
+
+            </LinearLayout>
+
+            <!-- 2. Pin to status bar -->
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stick your note on the notification bar until you clear it."
+                        android:textSize="10sp"
+                        android:textColor="#FFFFFF"
+                        />
+            </LinearLayout>
+
+        </ViewFlipper>
+
+    </LinearLayout>
+
+
+    <!-- Stick bottom button -->
+    <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/reminder_$_button_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Cancel"
+                android:layout_weight="0.33"
+                style="@style/ReminderButton"
+                />
+
+        <Button
+                android:id="@+id/reminder_$_button_reset"
+                android:text="Reset"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                style="@style/ReminderButton"
+                android:layout_weight="0.33"
+                />
+
+        <Button
+                android:id="@+id/reminder_$_button_save"
+                android:text="Save"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                style="@style/ReminderButton"
+                android:layout_weight="0.33"
+                />
+
+    </LinearLayout>
+</RelativeLayout><!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/layout/reminder.xml -->

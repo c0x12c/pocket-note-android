@@ -1,0 +1,9 @@
+<layer-list
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/rectangle_vimeo_grey_shadow"/>
+    <item
+            android:drawable="@drawable/rectangle_vimeo_grey"
+            android:bottom="4px" />
+
+</layer-list>

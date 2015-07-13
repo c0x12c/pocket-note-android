@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/pre-dexed/debug/classes-c505a603946ce5637ea3259bdfc192e3e31e5857.jar" />
+    </item>
+    <item
+        jar="/Users/chan/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="56498efd17752898cfcc3868c1b6211a07b12b8f">
+        <dex dex="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/pre-dexed/debug/joda-time-2.3-0d43b9a7f5074af69cb1968a31802e8397ef882b.jar" />
+    </item>
+    <item
+        jar="/Users/chan/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3/5fc52c41ef0239d1093a1eb7c3697036183677ce/gson-2.3.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/pre-dexed/debug/gson-2.3-f82c6230b9c9d28d472cd96866457adcc3a83dbb.jar" />
+    </item>
+    <item
+        jar="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/libs/universal-image-loader-1.9.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9e025bc5b84968e7d6ac765e660a70b3e5a87432">
+        <dex dex="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/pre-dexed/debug/universal-image-loader-1.9.2-1daf54bc405623ca2e2c95ea85fefd425c728c82.jar" />
+    </item>
+    <item
+        jar="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-64eccf8833b05348454ad5f2606338943152b3f4.jar" />
+    </item>
+    <item
+        jar="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="af64527b748983a75de9c0756e9768b56b240a49">
+        <dex dex="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/pre-dexed/debug/classes-81b69829bf0b612190ebeac4caecb0694fd26e98.jar" />
+    </item>
+    <item
+        jar="/Users/chan/Desktop/android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-b2705b3790b47e188a93645464a0a6b29648368b.jar" />
+    </item>
+
+</items>

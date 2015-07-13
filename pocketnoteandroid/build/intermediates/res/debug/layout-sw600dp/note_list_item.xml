@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:id="@+id/note_item_$_parent"
+                android:background="@drawable/shadow_note_row_select"
+                android:layout_height="match_parent">
+
+
+    <View
+            android:id="@+id/note_item_$_color_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="#FF0000"
+            />
+
+    <TextView
+            android:id="@+id/note_item_$_textview_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Title"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="#000000"
+            android:layout_marginTop="5dp"
+            />
+
+    <TextView
+            android:id="@+id/note_item_$_textview_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:text="Content"
+            android:textColor="@color/vimeo_dark_grey"
+            android:layout_below="@+id/note_item_$_textview_title"
+            android:layout_alignLeft="@+id/note_item_$_textview_title"/>
+
+
+    <TextView
+            android:id="@+id/note_item_$_textview_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Small Text"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/vimeo_dark_grey"
+            android:layout_alignTop="@+id/note_item_$_textview_title"
+            android:layout_alignParentRight="true"/>
+
+    <ImageView
+            android:id="@+id/note_item_$_imageview_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_device_access_secure"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:visibility="visible"
+            android:layout_alignTop="@+id/note_item_$_imageview_reminder"
+            android:layout_alignRight="@+id/note_item_$_textview_date"/>
+
+
+    <ImageView
+            android:id="@+id/note_item_$_imageview_reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_clock_dark"
+            android:visibility="visible"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_below="@+id/note_item_$_textview_date"
+            android:layout_toLeftOf="@+id/note_item_$_imageview_lock"/>
+
+</RelativeLayout><!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/layout-sw600dp/note_list_item.xml -->

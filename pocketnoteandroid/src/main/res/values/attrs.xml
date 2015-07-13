@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BucketNoteView">
+        <attr name="row" format="integer"/>
+        <attr name="column" format="integer"/>
+        <attr name="size" format="dimension"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:background="@color/purple_0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+    <ViewFlipper
+            android:id="@+id/notes_$_viewflipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ListView
+                android:id="@+id/notes_$_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:dividerHeight="10px"
+                android:divider="#00000000"
+                />
+
+        <GridView
+                android:id="@+id/notes_$_gridview"
+                android:numColumns="5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:listSelector="@android:color/transparent"
+                android:horizontalSpacing="2dip"
+                android:verticalSpacing="2dip"
+                android:paddingLeft="2dip"
+                android:paddingTop="2dip"/>
+
+        <LinearLayout
+                android:id="@+id/notes_$_linearlayout_empty"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:background="@drawable/setting_layout_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/notepad_black"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Add Note"
+                    android:textSize="24sp"
+                    android:textColor="@color/purple_14"
+                    android:textStyle="bold"
+                    />
+        </LinearLayout>
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Not Found"
+                android:textSize="24sp"
+                android:textColor="@color/purple_14"
+                android:textStyle="bold"
+                />
+    </ViewFlipper>
+
+    <ImageView
+            android:id="@+id/notes_$_imageview_sticky"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/android_button_select"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="20dp"
+            />
+
+
+</RelativeLayout><!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/layout-sw600dp/notes.xml -->

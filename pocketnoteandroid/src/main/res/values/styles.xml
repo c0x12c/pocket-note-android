@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="square">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="little_square">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">10dp</item>
+    </style>
+
+    <style name="Theme.MyTheme" parent="Theme.Sherlock">
+        <item name="actionBarStyle">@style/Widget.MyTheme.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.MyTheme.ActionBar</item>
+    </style>
+
+    <style name="Widget.MyTheme.ActionBar" parent="Widget.Sherlock.ActionBar">
+        <item name="android:background">@color/purple_13</item>
+        <item name="android:showDividers">beginning</item>
+        <item name="android:divider">@color/white</item>
+        <item name="android:dividerHeight">10px</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:colorBackground">@color/purple_14</item>
+    </style>
+
+
+    <style name="ReminderButton">
+        <item name="android:background">@drawable/calendar_purple_button</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">1dp</item>
+    </style>
+
+    <style name="WeekDayTextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/purple_12</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="horizontalSpacing" format="dimension"/>
+        <attr name="verticalSpacing" format="dimension"/>
+        <attr name="orientation" format="enum">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+        <attr name="debugDraw" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout_LayoutParams">
+        <attr name="layout_newLine" format="boolean"/>
+        <attr name="layout_horizontalSpacing" format="dimension"/>
+        <attr name="layout_verticalSpacing" format="dimension"/>
+    </declare-styleable>
+</resources>

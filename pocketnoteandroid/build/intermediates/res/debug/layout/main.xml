@@ -1,0 +1,78 @@
+<android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_$_drawer_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+    <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </RelativeLayout>
+
+    <LinearLayout
+            android:background="@drawable/shadow_main_drawer"
+            android:id="@+id/main_$_linearlayout_container"
+            android:orientation="vertical"
+            android:layout_gravity="left"
+            android:layout_width="250dp"
+            android:layout_height="match_parent">
+
+
+        <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:id="@+id/main_$_linearlayout_animated_background"
+                    android:orientation="horizontal"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
+                    />
+
+            <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <chan.android.app.pocketnote.util.view.CircularImageView
+                        android:id="@+id/main_$_imageview_user"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_user"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        />
+
+                <TextView
+                        android:id="@+id/main_$_textview_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Anonymous"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/purple_11"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- The navigation drawer -->
+        <ListView
+                android:id="@+id/main_$_listview_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:choiceMode="singleChoice"
+                android:listSelector="@drawable/drawer_list_selector"
+                android:divider="#444"
+                android:dividerHeight="1dp"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout><!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/layout/main.xml -->

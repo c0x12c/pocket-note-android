@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/calendar_menu_$_search"
+            android:showAsAction="always"
+            android:icon="@drawable/ic_drawer_search"
+            android:actionViewClass="android.widget.SearchView"
+            android:orderInCategory="0"
+            android:title="Search"/>
+
+</menu>

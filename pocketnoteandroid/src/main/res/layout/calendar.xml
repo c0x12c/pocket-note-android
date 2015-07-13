@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@color/purple_0"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ViewFlipper
+            android:id="@+id/calendar_$_viewflipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <RelativeLayout
+                android:id="@+id/calendar_$_linearlayout_parent"
+                android:orientation="vertical"
+                android:background="@color/purple_0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:id="@+id/calendar_$_linearlayout_top"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <ImageView
+                            android:id="@+id/calendar_$_imageview_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/ic_action_left"
+                            android:background="@android:drawable/list_selector_background"
+                            android:clickable="true"
+                            />
+
+                    <ImageView
+                            android:id="@+id/calendar_$_imageview_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_action_right"
+                            android:background="@android:drawable/list_selector_background"
+                            android:clickable="true"
+                            />
+
+                    <TextView
+                            android:id="@+id/calendar_$_textview_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="24sp"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:text="August"
+                            android:textStyle="bold"
+                            android:textColor="@color/purple_10"
+                            android:layout_gravity="center_horizontal"/>
+                </RelativeLayout>
+
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center"
+                        android:weightSum="7"
+                        >
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="SUN"
+                            android:textColor="@color/sunday"
+                            style="@style/WeekDayTextView"
+                            android:layout_weight="1"
+                            />
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="MON"
+                            style="@style/WeekDayTextView"
+                            android:layout_weight="1"
+                            />
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="TUE"
+                            style="@style/WeekDayTextView"
+                            android:layout_weight="1"
+                            />
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="WED"
+                            style="@style/WeekDayTextView"
+                            android:layout_weight="1"
+                            />
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="THU"
+                            style="@style/WeekDayTextView"
+                            android:layout_weight="1"
+                            />
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="FRI"
+                            style="@style/WeekDayTextView"
+                            android:layout_weight="1"
+                            />
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="SAT"
+                            style="@style/WeekDayTextView"
+                            android:textColor="@color/saturday"
+                            android:layout_weight="1"
+                            />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <GridView
+                    android:id="@+id/calendar_$_gridview"
+                    android:layout_below="@id/calendar_$_linearlayout_top"
+                    android:listSelector="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:numColumns="7"
+                    android:stretchMode="columnWidth"
+                    android:horizontalSpacing="1dip"
+                    android:verticalSpacing="1dip"
+                    android:paddingLeft="1dip"
+                    android:paddingTop="1dip"/>
+
+
+            <!-- Stick bottom button -->
+            <LinearLayout
+                    android:layout_alignParentBottom="true"
+                    android:weightSum="3"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <Button
+                        android:id="@+id/calendar_$_button_prev"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Previous"
+                        android:layout_weight="1"
+                        style="@style/ReminderButton"
+                        />
+
+                <Button
+                        android:id="@+id/calendar_$_button_jump"
+                        android:text="Jump"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        style="@style/ReminderButton"
+                        android:layout_weight="1"
+                        />
+
+                <Button
+                        android:id="@+id/calendar_$_button_next"
+                        android:text="Next"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        style="@style/ReminderButton"
+                        android:layout_weight="1"
+                        />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <ListView
+                android:id="@+id/calendar_$_listview_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:dividerHeight="10px"
+                android:divider="#00000000"
+                />
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Not Found"
+                android:textSize="24sp"
+                android:textColor="@color/purple_14"
+                android:textStyle="bold"
+                />
+
+
+    </ViewFlipper>
+</LinearLayout>

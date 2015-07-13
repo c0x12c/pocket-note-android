@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:background="@color/purple_0"
+            android:layout_height="fill_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="General"
+                android:textColor="@color/purple_12"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/settings_header_text_size"
+                />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/purple_14"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/settings_$_linearlayout_color"
+                android:background="@drawable/setting_layout_select"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Default color"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/settings_title_text_size"
+                    android:textColor="#000000"
+                    />
+
+            <chan.android.app.pocketnote.util.view.SquareButton
+                    android:id="@+id/settings_$_button_pick_color"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"
+                    />
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/settings_description_text_size"
+                android:textColor="@color/vimeo_dark_grey"
+                android:text="The color that will be displayed every time you create a new note"
+                />
+
+
+        <!-- Sorting -->
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+            <TextView
+                    android:id="@+id/settings_$_textview_sorting_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Default sorting order"
+                    android:layout_alignTop="@+id/settings_$_spinner_sorting"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/settings_title_text_size"
+                    />
+
+            <Spinner
+                    android:id="@+id/settings_$_spinner_sorting"
+                    android:layout_toRightOf="@id/settings_$_textview_sorting_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    />
+
+            <Spinner
+                    android:id="@+id/settings_$_spinner_alphabet_sorting_column"
+                    android:layout_toRightOf="@id/settings_$_textview_sorting_title"
+                    android:layout_below="@id/settings_$_spinner_sorting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone"
+                    />
+        </RelativeLayout>
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/vimeo_dark_grey"
+                android:textSize="@dimen/settings_description_text_size"
+                android:text="The ordering that used to sort all your notes"
+                />
+
+
+        <!-- Collection View -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Default view"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/settings_title_text_size"
+                    android:textColor="#000000"
+                    />
+
+            <Spinner
+                    android:id="@+id/settings_$_spinner_collection_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    />
+
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/settings_description_text_size"
+                android:textColor="@color/vimeo_dark_grey"
+                android:text="The view that use to display all your notes"
+                />
+
+
+        <!-- Password -->
+        <TextView
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textColor="@color/purple_12"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/settings_header_text_size"
+                />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/purple_14"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+        <RelativeLayout
+                android:id="@+id/settings_$_relativelayout_password"
+                android:layout_width="match_parent"
+                android:background="@drawable/setting_layout_select"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Master password"
+                    android:textSize="@dimen/settings_title_text_size"
+                    android:layout_centerVertical="true"
+                    android:textColor="#000000"
+                    />
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_action_navigation_next_item"
+                    android:scaleType="centerCrop"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:layout_alignParentRight="true"
+                    />
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/vimeo_dark_grey"
+                android:textSize="@dimen/settings_description_text_size"
+                android:text="Change or reset your current password"
+                />
+
+        <!-- Personal -->
+        <TextView
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Personal"
+                android:textColor="@color/purple_12"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/settings_header_text_size"
+                />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/purple_14"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+
+        <!-- Username -->
+        <RelativeLayout
+                android:id="@+id/settings_$_relativelayout_username"
+                android:background="@drawable/setting_layout_select"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/settings_$_textview_display_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Display name"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/settings_title_text_size"
+                    android:textColor="#000000"
+                    />
+
+            <TextView
+                    android:id="@+id/settings_$_textview_display_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/settings_$_textview_display_name_title"
+                    android:background="@color/purple_3"
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/aluminum6"
+                    android:layout_centerVertical="true"
+                    android:text="Chan Nguyen"
+                    android:padding="3dp"
+                    />
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_action_navigation_next_item"
+                    android:scaleType="centerCrop"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:layout_alignParentRight="true"
+                    />
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/settings_description_text_size"
+                android:textColor="@color/vimeo_dark_grey"
+                android:text="The name that will be displayed on the main navigation drawer"
+                />
+
+
+        <RelativeLayout
+                android:id="@+id/settings_$_relativelayout_photo"
+                android:background="@drawable/setting_layout_select"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/settings_$_textview_photo_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Display photo"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/settings_title_text_size"
+                    android:textColor="#000000"
+                    />
+
+            <chan.android.app.pocketnote.util.view.CircularImageView
+                    android:id="@+id/settings_$_imageview_photo"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_toRightOf="@+id/settings_$_textview_photo_title"
+                    android:layout_margin="10dp"
+                    android:layout_centerVertical="true"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_user"
+                    />
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_action_navigation_next_item"
+                    android:scaleType="centerCrop"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
+                    android:layout_alignParentRight="true"
+                    />
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/settings_description_text_size"
+                android:textColor="@color/vimeo_dark_grey"
+                android:text="The photo that will be displayed on the main navigation drawer"
+                />
+
+        <!-- About -->
+        <TextView
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="About"
+                android:textColor="@color/purple_12"
+                android:layout_marginLeft="20dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/settings_header_text_size"
+                />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/purple_14"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+
+        <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/settings_description_text_size"
+                android:textColor="@color/vimeo_dark_grey"
+                android:text="PocketNote is a free Android application developed by me - Chan Nguyen. Feel free to contact me at atbl1511@gmail.com for any additional features or bug fixes. Thank you for using PocketNote :)"
+                />
+
+        <Button
+                android:id="@+id/settings_$_button_rate"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Rate us!"
+                android:textSize="12sp"
+                android:background="@drawable/purple_button"
+                />
+
+    </LinearLayout>
+
+</ScrollView>
+<!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/layout/settings.xml -->

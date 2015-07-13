@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/res/values-w500dp/values.xml -->
+    <eat-comment/>
+    <integer name="abs__max_action_buttons">4</integer>
+</resources>

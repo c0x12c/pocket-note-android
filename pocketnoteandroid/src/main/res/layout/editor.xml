@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@color/yellow_0"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/editor_$_linearlayout_border"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow_2"
+            android:weightSum="1"
+            >
+
+        <EditText
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/editor_$_edittext_title"
+                android:layout_width="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:singleLine="true"
+                android:layout_weight="0.9"
+                android:textColor="#000000"
+                android:padding="5dp"
+                android:layout_marginBottom="5dp"
+                />
+
+        <chan.android.app.pocketnote.util.view.SquareButton
+                android:id="@+id/editor_$_button_pick_color"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                />
+    </LinearLayout>
+
+    <chan.android.app.pocketnote.app.notes.NoteEditor
+            android:id="@+id/editor_$_note_editor"
+            android:layout_width="match_parent"
+            android:inputType="textMultiLine"
+            android:layout_height="match_parent"
+            android:background="@color/yellow_0"
+            android:padding="5dp"
+            android:scrollbars="vertical"
+            android:fadingEdge="vertical"
+            android:gravity="top"
+            android:textSize="18sp"
+            android:capitalize="sentences"
+            />
+
+</LinearLayout>

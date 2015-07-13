@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/purple_0"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/note_list_$_textview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:background="@color/purple_13"
+            />
+
+    <ListView
+            android:id="@+id/note_list_$_listview"
+            android:layout_below="@id/note_list_$_textview_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:dividerHeight="10px"
+            android:divider="#00000000"
+            />
+
+    <!-- Stick bottom button -->
+    <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/note_list_$_button_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Cancel"
+                android:layout_weight="0.5"
+                style="@style/ReminderButton"
+                />
+
+        <Button
+                android:id="@+id/note_list_$_button_add"
+                android:text="Add"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                style="@style/ReminderButton"
+                android:layout_weight="0.5"
+                />
+
+    </LinearLayout>
+</RelativeLayout>

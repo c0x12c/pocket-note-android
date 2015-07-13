@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/rectangle_rounded_purple"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/confirm_dialog_$_textview_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Performing this action will delete all your trash items permanently. Are you sure you want to proceed?"
+            android:textColor="@color/purple_14"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:id="@+id/confirm_dialog_$_button_cancel"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/purple_button"
+                android:text="Cancel"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:gravity="center"
+                android:padding="5dp"
+                android:layout_marginRight="10dp"
+                />
+
+        <Button
+                android:id="@+id/confirm_dialog_$_button_ok"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/purple_button"
+                android:layout_marginLeft="10dp"
+                android:text="Delete All"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:shadowColor="#000000"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:gravity="center"
+                android:padding="5dp"
+                />
+
+    </LinearLayout>
+</LinearLayout><!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/layout/confirm_dialog.xml -->

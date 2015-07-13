@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/table_layout"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+    <TableRow
+            android:id="@+id/table_row0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        <Button
+                android:id="@+id/button00"
+                style="@style/little_square"
+                android:background="@color/c00"
+                />
+
+        <Button
+                android:id="@+id/button01"
+                style="@style/little_square"
+                android:background="@color/c01"
+                />
+
+        <Button
+                android:id="@+id/button02"
+                style="@style/little_square"
+                android:background="@color/c02"
+                />
+    </TableRow>
+
+    <TableRow
+            android:id="@+id/table_row1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        <Button
+                android:id="@+id/button10"
+                style="@style/little_square"
+                android:background="@color/c10"
+                />
+
+        <Button
+                android:id="@+id/button11"
+                style="@style/little_square"
+                android:background="@color/c11"
+                />
+
+        <Button
+                android:id="@+id/button12"
+                style="@style/little_square"
+                android:background="@color/c12"
+                />
+    </TableRow>
+
+    <TableRow
+            android:id="@+id/table_row2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        <Button
+                android:id="@+id/button20"
+                style="@style/little_square"
+                android:background="@color/c20"
+                />
+
+        <Button
+                android:id="@+id/button21"
+                style="@style/little_square"
+                android:background="@color/c21"
+                />
+
+        <Button
+                android:id="@+id/button22"
+                style="@style/little_square"
+                android:background="@color/c22"
+                />
+    </TableRow>
+
+</TableLayout>

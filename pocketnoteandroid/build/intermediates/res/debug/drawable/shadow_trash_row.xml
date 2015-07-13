@@ -1,0 +1,9 @@
+<layer-list
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/rectangle_trash_shadow"/>
+    <item
+            android:drawable="@drawable/rectangle_trash"
+            android:bottom="4px" />
+
+</layer-list><!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/drawable/shadow_trash_row.xml -->
