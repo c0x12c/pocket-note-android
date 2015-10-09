@@ -80,6 +80,6 @@ public class ConfirmDialogFragment extends DialogFragment {
 
   public interface OnConfirmListener {
 
-    public void onEnter(boolean ok);
+    void onEnter(boolean ok);
   }
 }

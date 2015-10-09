@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class AppResources {
 
-  private static final HashMap<Integer, Integer> COLOR_TO_DRAWABLE = new HashMap<Integer, Integer>();
-  private static final HashMap<Integer, Integer> DRAWABLE_TO_COLOR = new HashMap<Integer, Integer>();
+  private static final HashMap<Integer, Integer> COLOR_TO_DRAWABLE = new HashMap<>();
+  private static final HashMap<Integer, Integer> DRAWABLE_TO_COLOR = new HashMap<>();
 
   private AppResources() {
     throw new AssertionError("Don't even dare");

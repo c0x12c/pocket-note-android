@@ -4,10 +4,8 @@ package chan.android.app.pocketnote.app.calendar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
+import android.view.*;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
@@ -18,13 +16,10 @@ import chan.android.app.pocketnote.app.notes.EditNoteActivity;
 import chan.android.app.pocketnote.app.settings.PasswordDialogFragment;
 import chan.android.app.pocketnote.app.trash.ConfirmDialogFragment;
 import chan.android.app.pocketnote.util.Logger;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 
 import java.util.*;
 
-public class CalendarFragment extends SherlockFragment implements View.OnTouchListener, NoteAdapterNotifier {
+public class CalendarFragment extends Fragment implements View.OnTouchListener, NoteAdapterNotifier {
 
   public static final String TAG = "Calendar";
   private static final int FLIPPER_CALENDAR = 0;
@@ -123,7 +118,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     return super.onOptionsItemSelected(item);
   }
 
@@ -195,7 +190,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
     gridViewDays = (GridView) root.findViewById(R.id.calendar_$_gridview);
     textViewMonth = (TextView) root.findViewById(R.id.calendar_$_textview_month);
     relativeLayoutRoot = (RelativeLayout) root.findViewById(R.id.calendar_$_linearlayout_parent);
-    swipeListener = new OnSwipeListener(getSherlockActivity(), new Swiper() {
+    swipeListener = new OnSwipeListener(getActivity(), new Swiper() {
       @Override
       public void onSwipeLeft() {
         Logger.e("Swipe left");
@@ -256,7 +251,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
       public void onClick(View v) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog dialog = new DatePickerDialog(
-          getSherlockActivity(),
+          getActivity(),
           new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -375,7 +370,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   public void display(final int month, final int year) {
-    adapter = new CalendarItemAdapter(getSherlockActivity(), calendarItems);
+    adapter = new CalendarItemAdapter(getActivity(), calendarItems);
     gridViewDays.setAdapter(adapter);
     gridViewDays.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
@@ -460,7 +455,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   private void launchEditNoteActivity(int day, int month, int year, Note note) {
-    Intent intent = new Intent(getSherlockActivity(), EditNoteActivity.class);
+    Intent intent = new Intent(getActivity(), EditNoteActivity.class);
     if (note != null) {
       intent.putExtra(Note.BUNDLE_KEY, note);
     } else {

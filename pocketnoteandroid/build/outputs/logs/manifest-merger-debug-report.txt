@@ -15,8 +15,13 @@ ADDED from AndroidManifest.xml:2:1
 		INJECTED from AndroidManifest.xml:0:0
 uses-sdk
 ADDED from AndroidManifest.xml:7:5
-MERGED from com.actionbarsherlock:actionbarsherlock:4.4.0:3:3
-MERGED from com.android.support:support-v4:22.2.0:20:5
+MERGED from com.android.support:appcompat-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.android.support:design:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.android.support:appcompat-v7:23.0.1:20:5
+MERGED from com.android.support:support-v4:23.0.1:20:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
@@ -42,8 +47,13 @@ ADDED from AndroidManifest.xml:11:5
 		ADDED from AndroidManifest.xml:11:22
 application
 ADDED from AndroidManifest.xml:13:5
-MERGED from com.actionbarsherlock:actionbarsherlock:4.4.0:4:3
-MERGED from com.android.support:support-v4:22.2.0:22:5
+MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:design:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
 	android:label
 		ADDED from AndroidManifest.xml:15:13
 	android:icon

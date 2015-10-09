@@ -3,6 +3,8 @@ package chan.android.app.pocketnote.app.notes;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,18 +20,26 @@ import java.util.List;
 
 public class ActionListDialogFragment extends DialogFragment {
 
-  private String title;
-  private ItemAdapter adapter;
-  private List<Item> items;
-  private OnPickItemListener listener;
+  public static final String TAG = ActionListDialogFragment.class.getSimpleName();
 
-  private ActionListDialogFragment(String title, List<Item> items) {
-    this.title = title;
-    this.items = items;
+  interface Args {
+
+    String TITLE = TAG + ".title";
+
+    String ITEMS = TAG + ".items";
   }
 
+  private String title;
+
+  private ItemAdapter adapter;
+
+  private List<Item> items;
+
+  private OnPickItemListener listener;
+
   public static ActionListDialogFragment newInstance(String title, List<Item> items) {
-    return new ActionListDialogFragment(title, items);
+    ActionListDialogFragment d = new ActionListDialogFragment();
+    return d;
   }
 
   public void setPickItemListener(OnPickItemListener listener) {
@@ -63,10 +73,10 @@ public class ActionListDialogFragment extends DialogFragment {
 
   public interface OnPickItemListener {
 
-    public void onPick(int index);
+    void onPick(int index);
   }
 
-  public static class Item {
+  public static class Item implements Parcelable {
 
     final int iconId;
     final String name;
@@ -83,6 +93,32 @@ public class ActionListDialogFragment extends DialogFragment {
     public String getName() {
       return name;
     }
+
+    @Override
+    public int describeContents() {
+      return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+      dest.writeInt(this.iconId);
+      dest.writeString(this.name);
+    }
+
+    protected Item(Parcel in) {
+      this.iconId = in.readInt();
+      this.name = in.readString();
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+      public Item createFromParcel(Parcel source) {
+        return new Item(source);
+      }
+
+      public Item[] newArray(int size) {
+        return new Item[size];
+      }
+    };
   }
 
   static class ItemAdapter extends BaseAdapter {

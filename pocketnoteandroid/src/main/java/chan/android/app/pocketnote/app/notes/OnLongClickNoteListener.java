@@ -14,7 +14,6 @@ import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.app.reminder.ReminderActivity;
 import chan.android.app.pocketnote.app.settings.NewPasswordActivity;
 import chan.android.app.pocketnote.app.settings.PasswordDialogFragment;
-import com.actionbarsherlock.app.SherlockFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +22,15 @@ class OnLongClickNoteListener implements AdapterView.OnItemLongClickListener {
 
   protected BaseAdapter adapter;
 
-  protected SherlockFragment fragment;
+  protected Fragment fragment;
 
-  public OnLongClickNoteListener(SherlockFragment fragment, BaseAdapter adapter) {
+  public OnLongClickNoteListener(Fragment fragment, BaseAdapter adapter) {
     this.adapter = adapter;
     this.fragment = fragment;
   }
 
   protected List<Option> getAvailableOptions(Note note) {
-    List<Option> options = new ArrayList<Option>();
+    List<Option> options = new ArrayList<>();
     options.add(note.isChecked() ? Option.UNCHECK : Option.CHECK);
     options.add(note.isLocked() ? Option.UNLOCK : Option.LOCK);
     options.add(Option.TRASH);
@@ -41,7 +40,7 @@ class OnLongClickNoteListener implements AdapterView.OnItemLongClickListener {
   }
 
   public List<ActionListDialogFragment.Item> getOptionItems(List<Option> options) {
-    List<ActionListDialogFragment.Item> result = new ArrayList<ActionListDialogFragment.Item>();
+    List<ActionListDialogFragment.Item> result = new ArrayList<>();
     for (int i = 0, n = options.size(); i < n; ++i) {
       result.add(new ActionListDialogFragment.Item(options.get(i).iconId, options.get(i).name));
     }
@@ -215,6 +214,6 @@ class OnLongClickNoteListener implements AdapterView.OnItemLongClickListener {
   }
 
   public interface Callback {
-    public void doWork(Fragment fragment, final Note note);
+    void doWork(Fragment fragment, final Note note);
   }
 }

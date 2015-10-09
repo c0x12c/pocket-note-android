@@ -8,9 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.*;
@@ -21,11 +19,8 @@ import chan.android.app.pocketnote.app.db.NoteContentProvider;
 import chan.android.app.pocketnote.app.db.NoteDbTable;
 import chan.android.app.pocketnote.app.settings.PasswordDialogFragment;
 import chan.android.app.pocketnote.util.Logger;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 
-public class NotesFragment extends SherlockFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class NotesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
   public static final String TAG = "notes";
 
@@ -107,10 +102,10 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.notes_menu_$_add:
-        startActivity(new Intent(getSherlockActivity(), EditNoteActivity.class));
+        startActivity(new Intent(getActivity(), EditNoteActivity.class));
         break;
     }
     return super.onOptionsItemSelected(item);
@@ -138,7 +133,7 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
     linearLayoutEmpty.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        startActivity(new Intent(getSherlockActivity(), EditNoteActivity.class));
+        startActivity(new Intent(getActivity(), EditNoteActivity.class));
       }
     });
 

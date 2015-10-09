@@ -1,17 +1,25 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
 android {
-    compileSdkVersion 19
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "chan.android.app.pocketnote"
-        minSdkVersion 14
-        targetSdkVersion 14
+        minSdkVersion 16
+        targetSdkVersion 21
     }
 
     buildTypes {
         release {
+            shrinkResources true
+            minifyEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
@@ -23,12 +31,46 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE.txt'
+        pickFirst 'META-INF/NOTICE.txt'
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/NOTICE'
+        pickFirst 'NOTICE'
+        pickFirst 'LICENSE'
+        pickFirst 'LICENSE.txt'
+        pickFirst 'asm-license.txt'
+    }
 }
 
 dependencies {
+    /** JSON */
     compile 'com.google.code.gson:gson:2.3'
+
+    /** Joda time */
     compile 'joda-time:joda-time:2.3'
-    compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
-    compile 'com.android.support:support-v4:22.2.0'
-    compile files('libs/universal-image-loader-1.9.2.jar')
+
+    /** Android support for Material Design  */
+    compile('com.android.support:appcompat-v7:22.1.1') {
+        exclude module: 'support-annotations'
+    }
+    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:design:23.0.1'
+
+    /** Image loading  */
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    /** Reactive Android */
+    compile 'io.reactivex:rxandroid:0.25.0'
+
+    /** Testing  */
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile 'com.google.dexmaker:dexmaker-mockito:1.0'
+    testCompile 'com.google.dexmaker:dexmaker:1.0'
+    testCompile 'org.assertj:assertj-core:1.0.0'
+    testCompile('org.robolectric:robolectric:3.0') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
 }

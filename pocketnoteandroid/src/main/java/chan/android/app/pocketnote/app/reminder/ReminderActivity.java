@@ -6,6 +6,10 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
@@ -15,14 +19,13 @@ import chan.android.app.pocketnote.app.settings.SettingItemAdapter;
 import chan.android.app.pocketnote.app.trash.ConfirmDialogFragment;
 import chan.android.app.pocketnote.util.DateTimeUtility;
 import chan.android.app.pocketnote.util.TextUtility;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-public class ReminderActivity extends SherlockFragmentActivity {
+public class ReminderActivity extends AppCompatActivity {
 
   static final String[] TYPES = new String[]{
     Reminder.Type.ALL_DAY.description,
@@ -118,8 +121,8 @@ public class ReminderActivity extends SherlockFragmentActivity {
   private TextView textViewType;
 
   @Override
-  public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-    com.actionbarsherlock.view.MenuInflater inflater = getSupportMenuInflater();
+  public boolean onCreateOptionsMenu(Menu menu) {
+    final MenuInflater inflater = getMenuInflater();
     if (hasReminder()) {
       inflater.inflate(R.menu.reminder, menu);
     } else {
@@ -133,7 +136,7 @@ public class ReminderActivity extends SherlockFragmentActivity {
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.reminder_menu_$_dismiss: {
         ConfirmDialogFragment d = new ConfirmDialogFragment("Dismiss reminder for this event", "Cancel", "Yes");

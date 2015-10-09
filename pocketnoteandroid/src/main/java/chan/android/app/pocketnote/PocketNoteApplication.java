@@ -3,12 +3,11 @@ package chan.android.app.pocketnote;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 import chan.android.app.pocketnote.app.AppPreferences;
 import chan.android.app.pocketnote.app.AppResources;
 import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.util.Logger;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class PocketNoteApplication extends Application {
 
@@ -19,8 +18,19 @@ public class PocketNoteApplication extends Application {
     PocketNoteManager.initialize(context);
     AppPreferences.initialize(context);
     AppResources.initialize(context);
-    ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).build();
-    ImageLoader.getInstance().init(config);
+
+    if (BuildConfig.DEBUG) {
+      StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+        .detectAll()
+        .penaltyLog()
+        .build());
+      StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+        .detectAll()
+        .penaltyLog()
+        .build());
+
+      // LeakCanary.install(this);
+    }
   }
 
   @Override

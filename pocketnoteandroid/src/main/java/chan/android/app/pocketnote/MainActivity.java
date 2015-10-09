@@ -11,6 +11,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,21 +28,17 @@ import chan.android.app.pocketnote.app.notes.ActionListDialogFragment;
 import chan.android.app.pocketnote.app.notes.NotesFragment;
 import chan.android.app.pocketnote.app.settings.SettingsFragment;
 import chan.android.app.pocketnote.app.trash.TrashFragment;
-import chan.android.app.pocketnote.util.BitmapUtility;
-import chan.android.app.pocketnote.util.DeviceUtility;
 import chan.android.app.pocketnote.util.Logger;
 import chan.android.app.pocketnote.util.view.CircularImageView;
 import chan.android.app.pocketnote.util.view.NavigationDrawerAdapter;
 import chan.android.app.pocketnote.util.view.NavigationDrawerItem;
 import chan.android.app.pocketnote.util.view.NavigationMenuItem;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends SherlockFragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
   private static final int INTENT_TAKE_PHOTO = 0;
   private static final int INTENT_CHOOSE_PHOTO = 1;
@@ -154,17 +154,10 @@ public class MainActivity extends SherlockFragmentActivity {
   }
 
   private void displayPhoto(String path) {
-    try {
-      if (path.startsWith("https")) {
-        ImageLoader.getInstance().displayImage(path, photoImageView);
-      } else {
-        File file = new File(path);
-        int size = DeviceUtility.dpToPx(this, 48);
-        photoImageView.setImageBitmap(BitmapUtility.decodeBitmapFromFile(file, size, size));
-      }
-    } catch (Exception e) {
-      Logger.e("displayPhoto raise exception: " + e.getMessage());
-    }
+    Picasso
+      .with(this)
+      .load(path)
+      .into(photoImageView);
   }
 
   private void animateBackground() {
@@ -181,14 +174,14 @@ public class MainActivity extends SherlockFragmentActivity {
   }
 
   @Override
-  public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
-    com.actionbarsherlock.view.MenuInflater inflater = getSupportMenuInflater();
+  public boolean onCreateOptionsMenu(Menu menu) {
+    final MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.search, menu);
     return super.onCreateOptionsMenu(menu);
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home: {
         if (drawerLayout.isDrawerOpen(drawerContainer)) {

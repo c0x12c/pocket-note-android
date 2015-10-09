@@ -8,6 +8,7 @@ import android.preference.Preference;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,8 @@ import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import chan.android.app.pocketnote.R;
-import com.actionbarsherlock.app.SherlockFragment;
 
-public abstract class PreferenceFragment extends SherlockFragment implements
-  PreferenceManagerCompat.OnPreferenceTreeClickListener {
+public abstract class PreferenceFragment extends Fragment implements PreferenceManagerCompat.OnPreferenceTreeClickListener {
 
   private static final String PREFERENCES_TAG = "android:preferences";
   /**

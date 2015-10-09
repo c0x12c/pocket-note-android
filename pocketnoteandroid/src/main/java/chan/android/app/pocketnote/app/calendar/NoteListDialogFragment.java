@@ -2,6 +2,7 @@ package chan.android.app.pocketnote.app.calendar;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.Note;
-import com.actionbarsherlock.app.SherlockFragment;
 
 import java.util.List;
 
@@ -22,9 +22,9 @@ class NoteListDialogFragment extends DialogFragment implements NoteAdapterNotifi
   public NoteItemAdapter adapter;
   private List<Note> notes;
   private String title;
-  private SherlockFragment fragment;
+  private Fragment fragment;
 
-  public NoteListDialogFragment(SherlockFragment fragment, String title, List<Note> notes) {
+  public NoteListDialogFragment(Fragment fragment, String title, List<Note> notes) {
     this.fragment = fragment;
     this.title = title;
     this.notes = notes;
@@ -96,12 +96,12 @@ class NoteListDialogFragment extends DialogFragment implements NoteAdapterNotifi
 
   public interface OnDialogClickListener {
 
-    public void onCancel();
+    void onCancel();
 
-    public void onAdd();
+    void onAdd();
 
-    public void onEditNote(final Note note);
+    void onEditNote(final Note note);
 
-    public void onNotesChanged();
+    void onNotesChanged();
   }
 }

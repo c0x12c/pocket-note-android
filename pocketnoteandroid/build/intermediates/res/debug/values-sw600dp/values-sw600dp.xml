@@ -6,9 +6,6 @@
     <attr format="color" name="selectedColor"/>
     <attr format="dimension" name="strokeWidth"/>
     <attr format="color" name="unselectedColor"/>
-    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/res/values-sw600dp/values.xml -->
-    <eat-comment/>
-    <bool name="abs__action_bar_expanded_action_views_exclusive">false</bool>
     <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/values-sw600dp/vpi__defaults.xml -->
     <eat-comment/>
     <bool name="default_circle_indicator_centered">true</bool>
@@ -138,15 +135,15 @@
         <!-- Style of the underline indicator. -->
         <attr format="reference" name="vpiUnderlinePageIndicatorStyle"/>
     </declare-styleable>
-    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/res/values-sw600dp/values.xml -->
+    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-sw600dp/values-sw600dp.xml -->
     <eat-comment/>
-    <dimen name="abs__action_bar_default_height">56dip</dimen>
-    <dimen name="abs__action_bar_icon_vertical_padding">4dip</dimen>
-    <dimen name="abs__action_bar_subtitle_bottom_margin">9dip</dimen>
-    <dimen name="abs__action_bar_subtitle_text_size">14dp</dimen>
-    <dimen name="abs__action_bar_subtitle_top_margin">-3dp</dimen>
-    <dimen name="abs__action_bar_title_text_size">18dp</dimen>
-    <dimen name="abs__action_button_min_width">64dip</dimen>
+    <dimen name="abc_action_bar_content_inset_material">24dp</dimen>
+    <dimen name="abc_action_bar_default_height_material">64dp</dimen>
+    <dimen name="abc_action_bar_default_padding_end_material">8dp</dimen>
+    <dimen name="abc_action_bar_default_padding_start_material">8dp</dimen>
+    <dimen name="abc_config_prefDialogWidth">580dp</dimen>
+    <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
+    <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
     <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/values-sw600dp/vpi__defaults.xml -->
     <eat-comment/>
     <dimen name="default_circle_indicator_radius">3dp</dimen>
@@ -162,9 +159,18 @@
     <dimen name="default_title_indicator_text_size">15dp</dimen>
     <dimen name="default_title_indicator_title_padding">5dp</dimen>
     <dimen name="default_title_indicator_top_padding">7dp</dimen>
-    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.actionbarsherlock/actionbarsherlock/4.4.0/res/values-sw600dp/values.xml -->
+    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/design/23.0.1/res/values-sw600dp/values-sw600dp.xml -->
     <eat-comment/>
-    <integer name="abs__max_action_buttons">5</integer>
+    <dimen name="design_snackbar_action_inline_max_width">0dp</dimen>
+    <dimen name="design_snackbar_background_corner_radius">2dp</dimen>
+    <dimen name="design_snackbar_extra_spacing_horizontal">24dp</dimen>
+    <dimen name="design_snackbar_max_width">576dp</dimen>
+    <dimen name="design_snackbar_min_width">320dp</dimen>
+    <dimen name="design_snackbar_padding_vertical_2lines">@dimen/design_snackbar_padding_vertical</dimen>
+    <dimen name="design_tab_min_width">160dp</dimen>
+    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-sw600dp/values-sw600dp.xml -->
+    <eat-comment/>
+    <integer name="abc_max_action_buttons">5</integer>
     <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/values-sw600dp/vpi__defaults.xml -->
     <eat-comment/>
     <integer name="default_circle_indicator_orientation">0</integer>
@@ -172,6 +178,9 @@
     <integer name="default_title_indicator_line_position">0</integer>
     <integer name="default_underline_indicator_fade_delay">300</integer>
     <integer name="default_underline_indicator_fade_length">400</integer>
+    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/design/23.0.1/res/values-sw600dp/values-sw600dp.xml -->
+    <eat-comment/>
+    <integer name="design_snackbar_text_max_lines">1</integer>
     <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/values-sw600dp/styles.xml -->
     <eat-comment/>
     <style name="ReminderButton">
@@ -197,6 +206,14 @@
     </style>
     <style name="Widget">
     </style>
+    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/design/23.0.1/res/values-sw600dp/values-sw600dp.xml -->
+    <eat-comment/>
+    <style name="Widget.Design.TabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabGravity">center</item>
+        <item name="tabMode">fixed</item>
+    </style>
+    <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/values-sw600dp/vpi__styles.xml -->
+    <eat-comment/>
     <style name="Widget.IconPageIndicator" parent="Widget">
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginRight">6dp</item>

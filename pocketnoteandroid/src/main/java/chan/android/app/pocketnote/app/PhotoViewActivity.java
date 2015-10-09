@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import chan.android.app.pocketnote.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 public class PhotoViewActivity extends Activity {
 
@@ -13,6 +13,6 @@ public class PhotoViewActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.photo_view);
     ImageView img = (ImageView) findViewById(R.id.photo_view_$_imageview);
-    ImageLoader.getInstance().displayImage(AppPreferences.getUserPhotoFilePath(), img);
+    Picasso.with(this).load(AppPreferences.getUserPhotoFilePath()).into(img);
   }
 }

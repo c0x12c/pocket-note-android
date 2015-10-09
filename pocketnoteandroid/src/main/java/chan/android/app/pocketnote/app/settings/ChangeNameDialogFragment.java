@@ -9,14 +9,26 @@ import chan.android.app.pocketnote.R;
 
 public class ChangeNameDialogFragment extends DialogFragment {
 
+  public static final String TAG = ChangeNameDialogFragment.class.getSimpleName();
+
+  interface Args {
+
+    String NAME = TAG + ".name";
+  }
+
   private OnChangeNameListener listener;
+
   private EditText username;
+
   private Button reset;
+
   private Button save;
+
   private String name;
 
-  public ChangeNameDialogFragment(String name) {
-    this.name = name;
+  public static ChangeNameDialogFragment fragmentOf(String name) {
+    ChangeNameDialogFragment d = new ChangeNameDialogFragment();
+    return d;
   }
 
   public void setOnChangeNameListener(OnChangeNameListener listener) {
@@ -56,9 +68,9 @@ public class ChangeNameDialogFragment extends DialogFragment {
 
   public interface OnChangeNameListener {
 
-    public void onSave(String username);
+    void onSave(String username);
 
-    public void onReset();
+    void onReset();
   }
 }
 

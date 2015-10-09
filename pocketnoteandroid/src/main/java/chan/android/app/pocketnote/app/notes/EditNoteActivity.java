@@ -4,6 +4,7 @@ package chan.android.app.pocketnote.app.notes;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -17,9 +18,8 @@ import chan.android.app.pocketnote.app.notes.colors.OnPickColorListener;
 import chan.android.app.pocketnote.util.Logger;
 import chan.android.app.pocketnote.util.TextUtility;
 import chan.android.app.pocketnote.util.view.SquareButton;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class EditNoteActivity extends SherlockFragmentActivity {
+public class EditNoteActivity extends AppCompatActivity {
 
   private static final int INVALID = -1;
 

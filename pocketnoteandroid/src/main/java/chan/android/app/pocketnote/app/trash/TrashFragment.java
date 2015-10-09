@@ -3,12 +3,11 @@ package chan.android.app.pocketnote.app.trash;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.Note;
@@ -19,15 +18,12 @@ import chan.android.app.pocketnote.app.notes.ActionListDialogFragment;
 import chan.android.app.pocketnote.util.DateTimeUtility;
 import chan.android.app.pocketnote.util.Logger;
 import chan.android.app.pocketnote.util.view.RoundedRectListView;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrashFragment extends SherlockFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class TrashFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
   public static final String TAG = "Trash";
 
@@ -88,7 +84,7 @@ public class TrashFragment extends SherlockFragment implements LoaderManager.Loa
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.trash_menu_$_action_delete_all:
         final ConfirmDialogFragment d = new ConfirmDialogFragment();
@@ -167,9 +163,9 @@ public class TrashFragment extends SherlockFragment implements LoaderManager.Loa
 
     private CursorAdapter cursorAdapter;
 
-    private SherlockFragment fragment;
+    private Fragment fragment;
 
-    public TrashItemLongClickListener(SherlockFragment fragment, CursorAdapter adapter) {
+    public TrashItemLongClickListener(Fragment fragment, CursorAdapter adapter) {
       this.cursorAdapter = adapter;
       this.fragment = fragment;
     }
@@ -182,7 +178,7 @@ public class TrashFragment extends SherlockFragment implements LoaderManager.Loa
     }
 
     private List<ActionListDialogFragment.Item> getOptionItems(List<Option> options) {
-      List<ActionListDialogFragment.Item> result = new ArrayList<ActionListDialogFragment.Item>();
+      List<ActionListDialogFragment.Item> result = new ArrayList<>();
       for (int i = 0, n = options.size(); i < n; ++i) {
         result.add(new ActionListDialogFragment.Item(options.get(i).iconId, options.get(i).name));
       }
