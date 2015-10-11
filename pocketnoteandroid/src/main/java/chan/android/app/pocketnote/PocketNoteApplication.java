@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.StrictMode;
 import chan.android.app.pocketnote.app.AppPreferences;
 import chan.android.app.pocketnote.app.AppResources;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.util.Logger;
 
 public class PocketNoteApplication extends Application {
@@ -15,7 +14,6 @@ public class PocketNoteApplication extends Application {
   public void onCreate() {
     super.onCreate();
     Context context = getApplicationContext();
-    PocketNoteManager.initialize(context);
     AppPreferences.initialize(context);
     AppResources.initialize(context);
 

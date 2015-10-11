@@ -13,19 +13,15 @@ import android.widget.*;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
 import chan.android.app.pocketnote.app.db.NoteDbTable;
-import chan.android.app.pocketnote.app.notes.ActionListDialogFragment;
 import chan.android.app.pocketnote.app.notes.OptionsTabDialogFragment;
 import chan.android.app.pocketnote.app.notes.colors.ColorPickerDialogFragment;
-import chan.android.app.pocketnote.app.notes.colors.OnPickColorListener;
 import chan.android.app.pocketnote.util.Logger;
 import chan.android.app.pocketnote.util.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class SettingsFragment extends Fragment {
 
@@ -43,14 +39,10 @@ public class SettingsFragment extends Fragment {
     "By title",
     "By content"
   };
-  private static final int INTENT_TAKE_PHOTO = 0;
-  private static final int INTENT_CHOOSE_PHOTO = 1;
-  private static final List<ActionListDialogFragment.Item> PHOTO_ACTIONS = new ArrayList<>();
 
-  static {
-    PHOTO_ACTIONS.add(new ActionListDialogFragment.Item(R.drawable.ic_action_device_access_camera, "Take photo"));
-    PHOTO_ACTIONS.add(new ActionListDialogFragment.Item(R.drawable.ic_action_content_picture, "Choose photo"));
-  }
+  private static final int INTENT_TAKE_PHOTO = 0;
+
+  private static final int INTENT_CHOOSE_PHOTO = 1;
 
   private Button buttonColor;
 
@@ -180,8 +172,9 @@ public class SettingsFragment extends Fragment {
     relativeLayoutPhoto.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        ActionListDialogFragment d = ActionListDialogFragment.newInstance("Change photo", PHOTO_ACTIONS);
-        d.setPickItemListener(new ActionListDialogFragment.OnPickItemListener() {
+        /*
+        ActionDialogFragment d = ActionDialogFragment.fragment("Change photo", PHOTO_ACTIONS);
+        d.setPickItemListener(new ActionDialogFragment.OnPickItemListener() {
           @Override
           public void onPick(int index) {
             if (PHOTO_ACTIONS.get(index).getName().equals("Take photo")) {
@@ -194,6 +187,7 @@ public class SettingsFragment extends Fragment {
           }
         });
         d.show(getFragmentManager(), "photo_dialog");
+        */
       }
     });
 
@@ -203,7 +197,7 @@ public class SettingsFragment extends Fragment {
     relativeLayoutName.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        final ChangeNameDialogFragment d = new ChangeNameDialogFragment(AppPreferences.getUserName());
+        final ChangeNameDialogFragment d = ChangeNameDialogFragment.fragment(AppPreferences.getUserName());
         d.setOnChangeNameListener(new ChangeNameDialogFragment.OnChangeNameListener() {
           @Override
           public void onSave(String username) {
@@ -219,7 +213,7 @@ public class SettingsFragment extends Fragment {
             textViewUserName.setText(AppPreferences.getUserName());
           }
         });
-        d.show(getFragmentManager(), "username_dialog");
+        d.show(getFragmentManager(), ChangeNameDialogFragment.TAG);
       }
     });
 
@@ -304,7 +298,7 @@ public class SettingsFragment extends Fragment {
     public void onClick(View v) {
       FragmentManager fm = getFragmentManager();
       ColorPickerDialogFragment d = new ColorPickerDialogFragment();
-      d.setOnPickColorListener(new OnPickColorListener() {
+      d.setOnPickColorListener(new ColorPickerDialogFragment.OnPickColorListener() {
         @Override
         public void onPick(int color) {
           buttonColor.setBackgroundColor(color);

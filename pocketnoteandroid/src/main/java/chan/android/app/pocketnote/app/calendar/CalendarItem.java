@@ -4,7 +4,6 @@ package chan.android.app.pocketnote.app.calendar;
 import chan.android.app.pocketnote.app.Note;
 
 import java.util.ArrayList;
-import java.util.List;
 
 class CalendarItem {
 
@@ -14,7 +13,7 @@ class CalendarItem {
 
   private final int year;
 
-  private List<Note> notes;
+  private ArrayList<Note> notes;
 
   private boolean ignored;
 
@@ -23,7 +22,7 @@ class CalendarItem {
     this.month = month;
     this.year = year;
     this.ignored = ignored;
-    notes = new ArrayList<Note>();
+    notes = new ArrayList<>();
   }
 
   public void addNote(Note note) {
@@ -38,11 +37,11 @@ class CalendarItem {
     this.ignored = ignored;
   }
 
-  public List<Note> getNotes() {
+  public ArrayList<Note> getNotes() {
     return notes;
   }
 
-  public void setNotes(List<Note> notes) {
+  public void setNotes(ArrayList<Note> notes) {
     this.notes = notes;
   }
 

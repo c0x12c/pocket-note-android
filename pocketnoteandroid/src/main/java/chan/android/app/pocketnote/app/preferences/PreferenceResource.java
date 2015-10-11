@@ -1,39 +1,40 @@
 package chan.android.app.pocketnote.app.preferences;
 
 
+import rx.Observable;
+
 public interface PreferenceResource {
 
-  void saveDefaultAlphabetSortColumn(String column);
+  Observable<String> getDefaultAlphabetSortColumn();
 
-  String getDefaultAlphabetSortColumn();
+  Observable<Integer> getDefaultSortBy();
+
+  Observable<Integer> getDefaultColor();
+
+  Observable<Integer> getDefaultCollectionView();
+
+  Observable<String> getPassword();
+
+  Observable<Boolean> hasCorrectPassword(String password);
+
+  Observable<String> getUserTempPhotoFilePath();
+
+  Observable<String> getUserPhotoFilePath();
+
+  Observable<String> getUserName();
 
   void saveDefaultCollectionView(int index);
 
-  int getDefaultCollectionView();
-
-  void saveDefaultSortBy(int index);
-
-  int getDefaultSortBy();
+  void saveDefaultAlphabetSortColumn(String column);
 
   void saveDefaultColor(int color);
 
-  int getDefaultColor();
-
   void savePassword(String password);
-
-  String getPassword();
-
-  boolean hasCorrectPassword(String password);
 
   void saveUserPhotoFilePath(String imagePath);
 
   void saveUserTempPhotoFilePath(String imagePath);
 
-  String getUserTempPhotoFilePath();
-
-  String getUserPhotoFilePath();
-
   void saveUserName(String name);
 
-  String getUserName();
 }

@@ -1,31 +1,29 @@
 package chan.android.app.pocketnote.app.reminder;
 
 import android.app.DatePickerDialog;
-import android.app.NotificationManager;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
+import chan.android.app.pocketnote.app.BaseActivity;
 import chan.android.app.pocketnote.app.Note;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.app.settings.SettingItemAdapter;
 import chan.android.app.pocketnote.app.trash.ConfirmDialogFragment;
 import chan.android.app.pocketnote.util.DateTimeUtility;
 import chan.android.app.pocketnote.util.TextUtility;
+import chan.android.app.pocketnote.util.rx.SimpleSubscriber;
 import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-public class ReminderActivity extends AppCompatActivity {
+public class ReminderActivity extends BaseActivity {
 
   static final String[] TYPES = new String[]{
     Reminder.Type.ALL_DAY.description,
@@ -139,7 +137,11 @@ public class ReminderActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.reminder_menu_$_dismiss: {
-        ConfirmDialogFragment d = new ConfirmDialogFragment("Dismiss reminder for this event", "Cancel", "Yes");
+        final ConfirmDialogFragment d = ConfirmDialogFragment.fragment(
+          "Dismiss reminder for this event",
+          "Cancel",
+          "Yes"
+        );
         d.setOnConfirmListener(new ConfirmDialogFragment.OnConfirmListener() {
           @Override
           public void onEnter(boolean ok) {
@@ -152,12 +154,13 @@ public class ReminderActivity extends AppCompatActivity {
               }
 
               // Remove notification
+              /* TODO:
               NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-              PocketNoteManager noteManager = PocketNoteManager.getPocketNoteManager();
+              NoteResourceManager noteManager = NoteResourceManager.getPocketNoteManager();
               manager.cancel(noteManager.getId(editingNote));
-
               // Remove from DB
-              PocketNoteManager.getPocketNoteManager().removeReminder(editingNote);
+              NoteResourceManager.getPocketNoteManager().removeReminder(editingNote);
+              */
 
               // OK, go back
               finish();
@@ -544,10 +547,15 @@ public class ReminderActivity extends AppCompatActivity {
   }
 
   private void schedule(Reminder r) {
-    PocketNoteManager manager = PocketNoteManager.getPocketNoteManager();
-    AbstractReminderScheduler scheduler = NoteReminderScheduler.getScheduler(ReminderActivity.this);
-    manager.addReminder(editingNote, Reminder.toJson(r));
-    scheduler.schedule(editingNote);
+    subscribe(noteResource.addReminder(editingNote, Reminder.toJson(r)).subscribe(
+        new SimpleSubscriber<Note>() {
+          @Override
+          public void onNext(Note note) {
+            AbstractReminderScheduler scheduler = NoteReminderScheduler.getScheduler(ReminderActivity.this);
+            scheduler.schedule(note);
+          }
+        })
+    );
   }
 
   private enum TimeAlarmOption {
@@ -591,8 +599,14 @@ public class ReminderActivity extends AppCompatActivity {
       Reminder reminder = new Reminder(Reminder.Type.PIN_TO_STATUS_BAR, Reminder.Repetition.ONE_TIME, 0, 0, 0);
       String json = Reminder.toJson(reminder);
       editingNote.setReminder(json);
-      PocketNoteManager.getPocketNoteManager().addReminder(editingNote, json);
-      quit();
+      subscribe(noteResource.addReminder(editingNote, json).subscribe(
+          new SimpleSubscriber<Note>() {
+            @Override
+            public void onNext(Note note) {
+              quit();
+            }
+          })
+      );
     }
   }
 

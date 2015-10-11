@@ -26,7 +26,7 @@ public class ChangeNameDialogFragment extends DialogFragment {
 
   private String name;
 
-  public static ChangeNameDialogFragment fragmentOf(String name) {
+  public static ChangeNameDialogFragment fragment(String name) {
     ChangeNameDialogFragment d = new ChangeNameDialogFragment();
     return d;
   }

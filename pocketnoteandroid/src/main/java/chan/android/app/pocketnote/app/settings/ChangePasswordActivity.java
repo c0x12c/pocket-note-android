@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
-import chan.android.app.pocketnote.util.HashUtility;
+import chan.android.app.pocketnote.util.Hasher;
 
 public class ChangePasswordActivity extends Activity {
 
@@ -51,7 +51,7 @@ public class ChangePasswordActivity extends Activity {
   }
 
   private boolean doesOldPasswordMatch(final String oldPassword) {
-    return AppPreferences.getPassword().equals(HashUtility.md5(oldPassword));
+    return AppPreferences.getPassword().equals(Hasher.md5(oldPassword));
   }
 
   private void toast(String message) {

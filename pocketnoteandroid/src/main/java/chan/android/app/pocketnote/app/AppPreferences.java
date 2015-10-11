@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import chan.android.app.pocketnote.app.db.NoteDbTable;
-import chan.android.app.pocketnote.util.HashUtility;
+import chan.android.app.pocketnote.util.Hasher;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -74,7 +74,7 @@ public class AppPreferences {
   }
 
   public static void savePassword(String password) {
-    prefs.edit().putString(Key.PASSWORD.name(), HashUtility.md5(password)).apply();
+    prefs.edit().putString(Key.PASSWORD.name(), Hasher.md5(password)).apply();
   }
 
   public static String getPassword() {
@@ -83,7 +83,7 @@ public class AppPreferences {
 
   public static boolean hasCorrectPassword(String password) {
     String actual = getPassword();
-    return actual.equals(HashUtility.md5(password));
+    return actual.equals(Hasher.md5(password));
   }
 
   public static void saveUserPhotoFilePath(String imagePath) {

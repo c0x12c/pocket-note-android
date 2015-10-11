@@ -111,4 +111,9 @@ public class ColorPickerDialogFragment extends DialogFragment {
       }
     }
   }
+
+  public interface OnPickColorListener {
+
+    void onPick(int color);
+  }
 }

@@ -5,7 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import chan.android.app.pocketnote.app.Note;
 import chan.android.app.pocketnote.app.NoteDateFormatter;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
+import chan.android.app.pocketnote.app.ResourceFactory;
+import chan.android.app.pocketnote.app.db.NoteResource;
 import chan.android.app.pocketnote.app.reminder.AbstractReminderScheduler;
 import chan.android.app.pocketnote.app.reminder.NoteReminderScheduler;
 import chan.android.app.pocketnote.app.reminder.NotificationCenter;
@@ -30,8 +31,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         scheduler.cancel(note);
 
         // Remove reminder from database
-        PocketNoteManager manager = PocketNoteManager.getPocketNoteManager();
-        manager.removeReminder(note);
+        NoteResource manager = ResourceFactory.Main.getSingleton().provideNoteResource();
+        manager.removeReminder(note).subscribe();
 
       } else {
         sendNotification(context, note, reminder);

@@ -78,7 +78,7 @@ public class OptionsTabDialogFragment extends DialogFragment {
 
   public interface PickOptionListener {
 
-    public void onPick(Option option);
+    void onPick(Option option);
   }
 
   public static class OptionAdapter extends BaseAdapter {
@@ -111,7 +111,7 @@ public class OptionsTabDialogFragment extends DialogFragment {
       ViewHolder viewHolder;
       if (convertView == null) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.options_view_row, null);
+        convertView = inflater.inflate(R.layout.row_option, null);
         viewHolder = new ViewHolder(convertView);
         convertView.setTag(viewHolder);
       } else {
@@ -129,8 +129,10 @@ public class OptionsTabDialogFragment extends DialogFragment {
       final TextView title;
 
       public ViewHolder(View v) {
-        icon = (ImageView) v.findViewById(R.id.catalog_view_row_$_imageview_icon);
-        title = (TextView) v.findViewById(R.id.catalog_view_row_$_textview_title);
+        icon = (ImageView) v.findViewById(
+          R.id.row_option___imageview_icon);
+        title = (TextView) v.findViewById(
+          R.id.row_option___textview_title);
       }
     }
   }

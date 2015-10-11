@@ -1,10 +1,7 @@
 package chan.android.app.pocketnote.app;
 
-import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
-import chan.android.app.pocketnote.app.db.NoteDbTable;
-import chan.android.app.pocketnote.util.TextUtility;
 
 public class Note implements Parcelable, Comparable<Note> {
 
@@ -12,6 +9,7 @@ public class Note implements Parcelable, Comparable<Note> {
    * Use this key to send note to any other activity/fragment
    */
   public static final String BUNDLE_KEY = "note_bundle_key";
+
   public static final Parcelable.Creator<Note> CREATOR = new Parcelable.Creator<Note>() {
 
     @Override
@@ -70,6 +68,23 @@ public class Note implements Parcelable, Comparable<Note> {
   private int day;
   private int month;
   private int year;
+  private int id;
+
+  public Note(int id, String title, String content, long modifiedTime, int color) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
+    this.modifiedTime = modifiedTime;
+    this.color = color;
+    this.deletedTime = 0;
+    this.trashed = false;
+    this.locked = false;
+    this.checked = false;
+    this.reminder = null;
+    this.year = -1;
+    this.month = -1;
+    this.year = -1;
+  }
 
   public Note(String title, String content, long modifiedTime, int color) {
     this.title = title;
@@ -87,6 +102,7 @@ public class Note implements Parcelable, Comparable<Note> {
   }
 
   public Note(Parcel in) {
+    id = in.readInt();
     title = in.readString();
     content = in.readString();
     modifiedTime = in.readLong();
@@ -99,45 +115,6 @@ public class Note implements Parcelable, Comparable<Note> {
     year = in.readInt();
     month = in.readInt();
     day = in.readInt();
-  }
-
-  public static Note fromCursor(Cursor cursor) {
-    Note note = new Note(
-      cursor.getString(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_TITLE)),
-      cursor.getString(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_CONTENT)),
-      cursor.getLong(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_MODIFIED_TIME)),
-      cursor.getInt(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_COLOR)));
-
-    boolean locked = cursor.getInt(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_LOCKED)) == 1 ? true : false;
-    note.setLocked(locked);
-
-
-    boolean trashed = cursor.getInt(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_TRASHED)) == 1 ? true : false;
-    note.setTrashed(trashed);
-
-    boolean checked = cursor.getInt(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_CHECKED)) == 1 ? true : false;
-    note.setChecked(checked);
-
-    if (trashed) {
-      note.setDeletedTime(cursor.getLong(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_DELETED_TIME)));
-    }
-
-    String reminder = cursor.getString(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_REMINDER));
-    if (!TextUtility.isNullOrEmpty(reminder)) {
-      note.setReminder(reminder);
-    }
-
-    // For calendar note
-    int day = cursor.getInt(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_CALENDAR_DAY));
-    note.setDay(day);
-
-    int month = cursor.getInt(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_CALENDAR_MONTH));
-    note.setMonth(month);
-
-    int year = cursor.getInt(cursor.getColumnIndexOrThrow(NoteDbTable.COLUMN_CALENDAR_YEAR));
-    note.setYear(year);
-
-    return note;
   }
 
   public long getDeletedTime() {
@@ -234,6 +211,14 @@ public class Note implements Parcelable, Comparable<Note> {
 
   public void setYear(int year) {
     this.year = year;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override

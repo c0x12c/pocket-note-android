@@ -5,10 +5,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class HashUtility {
+public class Hasher {
 
-  private HashUtility() {
-    throw new AssertionError(HashUtility.class.getSimpleName() + " can't be instantiated.");
+  private Hasher() {
+    throw new AssertionError(Hasher.class.getSimpleName() + " can't be instantiated.");
   }
 
   public static String md5(String s) {

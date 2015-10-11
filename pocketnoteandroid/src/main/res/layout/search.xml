@@ -6,17 +6,17 @@
               android:layout_height="match_parent">
 
 
-    <chan.android.app.pocketnote.util.view.RoundedRectListView
-            android:id="@+id/notes_$_listview"
-            android:background="@color/purple_0"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="#E6E6E6"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="5dp"
-            android:dividerHeight="10px"
-            />
+  <chan.android.app.pocketnote.util.view.RoundedRectListView
+    android:id="@+id/notes_$_listview"
+    android:background="@color/purple_0"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="#E6E6E6"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginRight="5dp"
+    android:dividerHeight="10px"
+    />
 
 </LinearLayout>

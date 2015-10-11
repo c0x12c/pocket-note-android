@@ -3,27 +3,29 @@ package chan.android.app.pocketnote.app.trash;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.*;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
+import chan.android.app.pocketnote.app.BaseFragment;
 import chan.android.app.pocketnote.app.Note;
+import chan.android.app.pocketnote.app.common.Item;
+import chan.android.app.pocketnote.app.common.MenuItemDialogFragment;
 import chan.android.app.pocketnote.app.db.NoteContentProvider;
 import chan.android.app.pocketnote.app.db.NoteDbTable;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
-import chan.android.app.pocketnote.app.notes.ActionListDialogFragment;
+import chan.android.app.pocketnote.app.db.NoteResourceManager;
 import chan.android.app.pocketnote.util.DateTimeUtility;
 import chan.android.app.pocketnote.util.Logger;
+import chan.android.app.pocketnote.util.rx.SimpleSubscriber;
 import chan.android.app.pocketnote.util.view.RoundedRectListView;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrashFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class TrashFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
   public static final String TAG = "Trash";
 
@@ -41,7 +43,7 @@ public class TrashFragment extends Fragment implements LoaderManager.LoaderCallb
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getLoaderManager().initLoader(0, null, this);
-    adapter = new TrashNoteCursorAdapter(getActivity(), R.layout.trash_list_item);
+    adapter = new TrashNoteCursorAdapter(getActivity(), R.layout.row_trash);
     setHasOptionsMenu(true);
   }
 
@@ -92,7 +94,13 @@ public class TrashFragment extends Fragment implements LoaderManager.LoaderCallb
           @Override
           public void onEnter(boolean ok) {
             if (ok) {
-              PocketNoteManager.getPocketNoteManager().removeAll();
+              subscribe(noteResource.removeAll().subscribe(
+                new SimpleSubscriber<Integer>() {
+                  @Override
+                  public void onNext(Integer integer) {
+                    // TODO: Notify data changed!
+                  }
+                }));
             }
           }
         });
@@ -153,9 +161,12 @@ public class TrashFragment extends Fragment implements LoaderManager.LoaderCallb
     LinearLayout parent;
 
     public ViewHolder(View v) {
-      parent = (LinearLayout) v.findViewById(R.id.trash_list_item_$_linearlayout_parent);
-      title = (TextView) v.findViewById(R.id.trash_list_item_$_textview_title);
-      date = (TextView) v.findViewById(R.id.trash_list_item_$_textview_removed_date);
+      parent = (LinearLayout) v.findViewById(
+        R.id.row_trash___linearlayout_parent);
+      title = (TextView) v.findViewById(
+        R.id.row_trash___textview_title);
+      date = (TextView) v.findViewById(
+        R.id.row_trash___textview_removed_date);
     }
   }
 
@@ -163,24 +174,24 @@ public class TrashFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private CursorAdapter cursorAdapter;
 
-    private Fragment fragment;
+    private BaseFragment fragment;
 
-    public TrashItemLongClickListener(Fragment fragment, CursorAdapter adapter) {
+    public TrashItemLongClickListener(BaseFragment fragment, CursorAdapter adapter) {
       this.cursorAdapter = adapter;
       this.fragment = fragment;
     }
 
-    private List<Option> getAvailableOptions(Note note) {
-      List<Option> options = new ArrayList<Option>();
-      options.add(Option.REMOVE);
-      options.add(Option.RESTORE);
+    private List<Action> getAvailableOptions(Note note) {
+      List<Action> options = new ArrayList<>();
+      options.add(Action.REMOVE);
+      options.add(Action.RESTORE);
       return options;
     }
 
-    private List<ActionListDialogFragment.Item> getOptionItems(List<Option> options) {
-      List<ActionListDialogFragment.Item> result = new ArrayList<>();
+    private ArrayList<Item> getOptionItems(List<Action> options) {
+      ArrayList<Item> result = new ArrayList<>();
       for (int i = 0, n = options.size(); i < n; ++i) {
-        result.add(new ActionListDialogFragment.Item(options.get(i).iconId, options.get(i).name));
+        result.add(new Item(options.get(i).iconId, options.get(i).name));
       }
       return result;
     }
@@ -188,45 +199,57 @@ public class TrashFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
       final Cursor cursor = (Cursor) cursorAdapter.getItem(position);
-      final Note note = Note.fromCursor(cursor);
-      final List<Option> options = getAvailableOptions(note);
-      ActionListDialogFragment d = ActionListDialogFragment.newInstance(note.getTitle(), getOptionItems(options));
-      d.setPickItemListener(new ActionListDialogFragment.OnPickItemListener() {
+      final Note note = NoteResourceManager.fromCursor(cursor);
+      final List<Action> options = getAvailableOptions(note);
+      MenuItemDialogFragment d = MenuItemDialogFragment.fragment(note.getTitle(), getOptionItems(options));
+      d.setPickItemListener(new MenuItemDialogFragment.OnPickItemListener() {
         @Override
-        public void onPick(int index) {
-          Option opt = options.get(index);
-          opt.choose(fragment.getActivity(), note);
+        public void onPick(View v, int index, Item item) {
+          Action action = options.get(index);
+          action.perform(fragment, note);
           cursorAdapter.notifyDataSetChanged();
         }
       });
       d.show(fragment.getFragmentManager(), "dialog");
     }
 
-    private enum Option {
+    enum Action {
 
       REMOVE("Delete permanently", R.drawable.ic_drawer_trash) {
         @Override
-        public void choose(Context context, Note note) {
-          PocketNoteManager.getPocketNoteManager().remove(note);
+        public void perform(BaseFragment fragment, Note note) {
+          fragment.subscribe(fragment.getNoteResource().remove(note).subscribe(
+            new SimpleSubscriber<Boolean>() {
+              @Override
+              public void onNext(Boolean success) {
+
+              }
+            }));
         }
       },
 
       RESTORE("Restore", R.drawable.ic_action_restore) {
         @Override
-        public void choose(Context context, Note note) {
-          PocketNoteManager.getPocketNoteManager().restore(note);
+        public void perform(BaseFragment fragment, Note note) {
+          fragment.subscribe(fragment.getNoteResource().restore(note).subscribe(
+            new SimpleSubscriber<Note>() {
+              @Override
+              public void onNext(Note note) {
+
+              }
+            }));
         }
       };
 
       final String name;
       final int iconId;
 
-      Option(String name, int iconId) {
+      Action(String name, int iconId) {
         this.name = name;
         this.iconId = iconId;
       }
 
-      public abstract void choose(Context context, Note note);
+      abstract void perform(BaseFragment context, Note note);
     }
   }
 
@@ -253,7 +276,7 @@ public class TrashFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
       final ViewHolder vh = (ViewHolder) view.getTag();
-      Note note = Note.fromCursor(cursor);
+      Note note = NoteResourceManager.fromCursor(cursor);
       if (!note.isTrashed()) {
         vh.parent.setVisibility(View.GONE);
         vh.parent.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
@@ -261,7 +284,10 @@ public class TrashFragment extends Fragment implements LoaderManager.LoaderCallb
       vh.title.setText(note.getTitle());
       // Make date time more readable
       DateTime dt = new DateTime(note.getDeletedTime());
-      vh.date.setText(DateTimeUtility.getReminderReadableDate(dt) + " @ " + DateTimeUtility.getReminderReadableTime(dt.getHourOfDay(), dt.getMinuteOfHour()));
+      vh.date.setText(
+        DateTimeUtility.getReminderReadableDate(dt) + " @ " +
+          DateTimeUtility.getReminderReadableTime(dt.getHourOfDay(), dt.getMinuteOfHour())
+      );
     }
   }
 }

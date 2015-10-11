@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/row_trash___linearlayout_parent"
+  android:layout_width="match_parent"
+  android:background="@drawable/shadow_note_row_select"
+  android:layout_height="wrap_content"
+  android:weightSum="10">
+
+
+  <TextView
+    android:id="@+id/row_trash___textview_title"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:textSize="14sp"
+    android:textStyle="bold"
+    android:maxLength="20"
+    android:maxLines="1"
+    android:text="Large Text"
+    android:textColor="#000000"
+    android:layout_gravity="center_vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:layout_weight="7"
+    />
+
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_trash"
+    android:scaleX="0.5"
+    android:scaleY="0.5"
+    android:layout_weight="1"
+    />
+
+  <TextView
+    android:id="@+id/row_trash___textview_removed_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="8sp"
+    android:text="05/08/2014"
+    android:layout_gravity="center_vertical"
+    android:textColor="#777777"
+    android:layout_weight="2"
+    />
+
+</LinearLayout>

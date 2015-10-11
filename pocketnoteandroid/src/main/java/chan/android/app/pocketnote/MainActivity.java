@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import chan.android.app.pocketnote.app.AppPreferences;
 import chan.android.app.pocketnote.app.calendar.CalendarFragment;
-import chan.android.app.pocketnote.app.notes.ActionListDialogFragment;
 import chan.android.app.pocketnote.app.notes.NotesFragment;
 import chan.android.app.pocketnote.app.settings.SettingsFragment;
 import chan.android.app.pocketnote.app.trash.TrashFragment;
@@ -35,20 +34,10 @@ import chan.android.app.pocketnote.util.view.NavigationDrawerItem;
 import chan.android.app.pocketnote.util.view.NavigationMenuItem;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
   private static final int INTENT_TAKE_PHOTO = 0;
   private static final int INTENT_CHOOSE_PHOTO = 1;
-
-  private static final List<ActionListDialogFragment.Item> PHOTO_ACTIONS = new ArrayList<>();
-
-  static {
-    PHOTO_ACTIONS.add(new ActionListDialogFragment.Item(R.drawable.ic_action_device_access_camera, "Take photo"));
-    PHOTO_ACTIONS.add(new ActionListDialogFragment.Item(R.drawable.ic_action_content_picture, "Choose photo"));
-  }
 
   private NavigationDrawerItem[] DRAWER_ITEMS;
   private DrawerLayout drawerLayout;
@@ -77,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     fragmentNote = NotesFragment.newInstance();
     fragmentTrash = TrashFragment.newInstance();
-    fragmentCalendar = CalendarFragment.newInstance();
+    fragmentCalendar = CalendarFragment.fragment();
     fragmentSettings = SettingsFragment.newInstance();
 
     fragments = new Fragment[4];
