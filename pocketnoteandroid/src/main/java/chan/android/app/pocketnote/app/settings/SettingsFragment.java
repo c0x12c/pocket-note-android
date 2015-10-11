@@ -6,34 +6,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
 import chan.android.app.pocketnote.app.db.NoteDbTable;
-import chan.android.app.pocketnote.app.notes.ActionListDialogFragment;
 import chan.android.app.pocketnote.app.notes.OptionsTabDialogFragment;
 import chan.android.app.pocketnote.app.notes.colors.ColorPickerDialogFragment;
-import chan.android.app.pocketnote.app.notes.colors.OnPickColorListener;
-import chan.android.app.pocketnote.util.BitmapUtility;
-import chan.android.app.pocketnote.util.DeviceUtility;
 import chan.android.app.pocketnote.util.Logger;
 import chan.android.app.pocketnote.util.view.CircularImageView;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class SettingsFragment extends SherlockFragment {
+public class SettingsFragment extends Fragment {
 
   public static final String TAG = "Settings";
   static final String[] SORTING_OPTIONS = new String[]{
@@ -49,14 +39,10 @@ public class SettingsFragment extends SherlockFragment {
     "By title",
     "By content"
   };
-  private static final int INTENT_TAKE_PHOTO = 0;
-  private static final int INTENT_CHOOSE_PHOTO = 1;
-  private static final List<ActionListDialogFragment.Item> PHOTO_ACTIONS = new ArrayList<ActionListDialogFragment.Item>();
 
-  static {
-    PHOTO_ACTIONS.add(new ActionListDialogFragment.Item(R.drawable.ic_action_device_access_camera, "Take photo"));
-    PHOTO_ACTIONS.add(new ActionListDialogFragment.Item(R.drawable.ic_action_content_picture, "Choose photo"));
-  }
+  private static final int INTENT_TAKE_PHOTO = 0;
+
+  private static final int INTENT_CHOOSE_PHOTO = 1;
 
   private Button buttonColor;
 
@@ -82,7 +68,7 @@ public class SettingsFragment extends SherlockFragment {
 
   private String photoPath;
 
-  public static SettingsFragment newInstance() {
+  public static SettingsFragment instance() {
     return new SettingsFragment();
   }
 
@@ -186,8 +172,9 @@ public class SettingsFragment extends SherlockFragment {
     relativeLayoutPhoto.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        ActionListDialogFragment d = ActionListDialogFragment.newInstance("Change photo", PHOTO_ACTIONS);
-        d.setPickItemListener(new ActionListDialogFragment.OnPickItemListener() {
+        /*
+        ActionDialogFragment d = ActionDialogFragment.fragment("Change photo", PHOTO_ACTIONS);
+        d.setPickItemListener(new ActionDialogFragment.OnPickItemListener() {
           @Override
           public void onPick(int index) {
             if (PHOTO_ACTIONS.get(index).getName().equals("Take photo")) {
@@ -200,6 +187,7 @@ public class SettingsFragment extends SherlockFragment {
           }
         });
         d.show(getFragmentManager(), "photo_dialog");
+        */
       }
     });
 
@@ -209,7 +197,7 @@ public class SettingsFragment extends SherlockFragment {
     relativeLayoutName.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        final ChangeNameDialogFragment d = new ChangeNameDialogFragment(AppPreferences.getUserName());
+        final ChangeNameDialogFragment d = ChangeNameDialogFragment.fragment(AppPreferences.getUserName());
         d.setOnChangeNameListener(new ChangeNameDialogFragment.OnChangeNameListener() {
           @Override
           public void onSave(String username) {
@@ -225,7 +213,7 @@ public class SettingsFragment extends SherlockFragment {
             textViewUserName.setText(AppPreferences.getUserName());
           }
         });
-        d.show(getFragmentManager(), "username_dialog");
+        d.show(getFragmentManager(), ChangeNameDialogFragment.TAG);
       }
     });
 
@@ -268,19 +256,13 @@ public class SettingsFragment extends SherlockFragment {
   }
 
   private void displayPhoto(String path) {
-    try {
-      if (path.startsWith("https")) {
-        ImageLoader.getInstance().displayImage(path, photoImageView);
-      } else {
-
-        File file = new File(path);
-        int size = DeviceUtility.dpToPx(getActivity(), 32);
-        photoImageView.setImageBitmap(BitmapUtility.decodeBitmapFromFile(file, size, size));
-      }
-    } catch (Exception e) {
-      Logger.e("displayPhoto raise exception: " + e.getMessage());
-      photoImageView.setImageResource(R.drawable.ic_user);
-    }
+    Picasso
+      .with(getContext())
+      .load(path)
+      .error(R.drawable.ic_user)
+      .placeholder(R.drawable.ic_user)
+      .fit()
+      .into(photoImageView);
   }
 
   @Override
@@ -297,7 +279,7 @@ public class SettingsFragment extends SherlockFragment {
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     return super.onOptionsItemSelected(item);
   }
 
@@ -316,7 +298,7 @@ public class SettingsFragment extends SherlockFragment {
     public void onClick(View v) {
       FragmentManager fm = getFragmentManager();
       ColorPickerDialogFragment d = new ColorPickerDialogFragment();
-      d.setOnPickColorListener(new OnPickColorListener() {
+      d.setOnPickColorListener(new ColorPickerDialogFragment.OnPickColorListener() {
         @Override
         public void onPick(int color) {
           buttonColor.setBackgroundColor(color);

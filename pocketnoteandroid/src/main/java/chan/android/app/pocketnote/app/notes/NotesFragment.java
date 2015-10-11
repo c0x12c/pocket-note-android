@@ -8,24 +8,30 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
+import chan.android.app.pocketnote.app.BaseFragment;
 import chan.android.app.pocketnote.app.Note;
+import chan.android.app.pocketnote.app.common.Item;
+import chan.android.app.pocketnote.app.common.MenuItemDialogFragment;
 import chan.android.app.pocketnote.app.db.NoteContentProvider;
 import chan.android.app.pocketnote.app.db.NoteDbTable;
+import chan.android.app.pocketnote.app.db.NoteResource;
+import chan.android.app.pocketnote.app.db.NoteResourceManager;
+import chan.android.app.pocketnote.app.notes.adapter.Action;
+import chan.android.app.pocketnote.app.reminder.ReminderActivity;
 import chan.android.app.pocketnote.app.settings.PasswordDialogFragment;
 import chan.android.app.pocketnote.util.Logger;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
+import chan.android.app.pocketnote.util.rx.SimpleSubscriber;
 
-public class NotesFragment extends SherlockFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class NotesFragment extends BaseFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
   public static final String TAG = "notes";
 
@@ -61,7 +67,7 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
 
   private int currentCollectionViewIndex = 0;
 
-  public static NotesFragment newInstance() {
+  public static NotesFragment instance() {
     return new NotesFragment();
   }
 
@@ -69,7 +75,8 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     menu.clear();
     inflater.inflate(R.menu.notes, menu);
-    SearchView searchView = (SearchView) menu.findItem(R.id.notes_menu_$_search).getActionView();
+    /*
+    SearchView searchView = (SearchView) menu.findItem(R.id.notes___search).getActionView();
     SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
@@ -103,14 +110,15 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
       }
     };
     searchView.setOnQueryTextListener(listener);
+    */
     super.onCreateOptionsMenu(menu, inflater);
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.notes_menu_$_add:
-        startActivity(new Intent(getSherlockActivity(), EditNoteActivity.class));
+      case R.id.notes___add:
+        startActivity(new Intent(getActivity(), EditNoteActivity.class));
         break;
     }
     return super.onOptionsItemSelected(item);
@@ -127,18 +135,28 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    Logger.e("NoteFragment.onCreateView()");
-    View root = inflater.inflate(R.layout.notes, container, false);
+    final View root = inflater.inflate(
+      R.layout.notes, container, false);
+    viewFlipper = (ViewFlipper) root.findViewById(
+      R.id.notes___viewflipper);
+    linearLayoutEmpty = (LinearLayout) root.findViewById(
+      R.id.notes___linearlayout_empty);
+    gridView = (GridView) root.findViewById(
+      R.id.notes___gridview);
+    listView = (ListView) root.findViewById(
+      R.id.notes___listview);
+    optionButton = (ImageView) root.findViewById(
+      R.id.notes___imageview_sticky);
+    return root;
+  }
 
-    // View flipper to flip between list view and grid view
-    viewFlipper = (ViewFlipper) root.findViewById(R.id.notes_$_viewflipper);
-
+  @Override
+  public void onViewCreated(View view, Bundle bundle) {
     // Empty layout click add note
-    linearLayoutEmpty = (LinearLayout) root.findViewById(R.id.notes_$_linearlayout_empty);
     linearLayoutEmpty.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        startActivity(new Intent(getSherlockActivity(), EditNoteActivity.class));
+        startActivity(new Intent(getActivity(), EditNoteActivity.class));
       }
     });
 
@@ -149,21 +167,21 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
     layoutAnimationController = AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.notes_layout_anim);
 
     // Prepare grid view
-    gridView = (GridView) root.findViewById(R.id.notes_$_gridview);
+
     gridView.setAdapter(gridAdapter);
     gridView.setOnItemLongClickListener(new OnLongClickNoteListener(this, gridAdapter));
     gridView.setOnItemClickListener(new OnClickNoteListener(this, gridAdapter));
     gridView.setLayoutAnimation(layoutAnimationController);
 
     // Prepare list view
-    listView = (ListView) root.findViewById(R.id.notes_$_listview);
+
     listView.setAdapter(listAdapter);
     listView.setOnItemLongClickListener(new OnLongClickNoteListener(this, listAdapter));
     listView.setOnItemClickListener(new OnClickNoteListener(this, listAdapter));
     listView.setLayoutAnimation(layoutAnimationController);
 
     // To change view or sort item
-    optionButton = (ImageView) root.findViewById(R.id.notes_$_imageview_sticky);
+
     optionButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -193,8 +211,6 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
 
     // Make sure we update from preferences
     checkPreferences();
-
-    return root;
   }
 
   public void onResume() {
@@ -297,7 +313,126 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
     gridAdapter.swapCursor(null);
   }
 
-  private static class OnClickNoteListener implements AdapterView.OnItemClickListener {
+  public void askPassword(final BaseFragment fragment, final Note note) {
+    final PasswordDialogFragment d = new PasswordDialogFragment();
+    d.show(fragment.getFragmentManager(), "password");
+    d.setOnPasswordEnterListener(new PasswordDialogFragment.OnPasswordEnterListener() {
+      @Override
+      public void onEnter(String password) {
+        if (AppPreferences.hasCorrectPassword(password)) {
+          d.dismiss();
+        } else {
+          d.showErrorMessage("Password is incorrect!");
+        }
+      }
+    });
+  }
+
+  public static List<Action> getAvailableActions(Note note) {
+    List<Action> options = new ArrayList<>();
+    options.add(note.isChecked() ? Action.UNCHECK : Action.CHECK);
+    options.add(note.isLocked() ? Action.UNLOCK : Action.LOCK);
+    options.add(Action.TRASH);
+    options.add(Action.REMINDER);
+    options.add(Action.EMAIL);
+    return options;
+  }
+
+  static class OnLongClickNoteListener implements AdapterView.OnItemLongClickListener {
+
+    final BaseFragment fragment;
+
+    final BaseAdapter adapter;
+
+    public OnLongClickNoteListener(BaseFragment fragment, BaseAdapter adapter) {
+      this.fragment = fragment;
+      this.adapter = adapter;
+    }
+
+    public static List<Action> getAvailableActions(Note note) {
+      List<Action> options = new ArrayList<>();
+      options.add(note.isChecked() ? Action.UNCHECK : Action.CHECK);
+      options.add(note.isLocked() ? Action.UNLOCK : Action.LOCK);
+      options.add(Action.TRASH);
+      options.add(Action.REMINDER);
+      options.add(Action.EMAIL);
+      return options;
+    }
+
+    public ArrayList<Item> getItems(List<Action> options) {
+      ArrayList<Item> result = new ArrayList<>();
+      for (int i = 0, n = options.size(); i < n; ++i) {
+        result.add(new Item(options.get(i).getIconId(), options.get(i).getName()));
+      }
+      return result;
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+      final Cursor cursor = (Cursor) adapter.getItem(position);
+      final Note note = NoteResourceManager.fromCursor(cursor);
+      final MenuItemDialogFragment d = MenuItemDialogFragment.fragment(
+        note.getTitle(),
+        getItems(getAvailableActions(note))
+      );
+      d.setPickItemListener(new MenuItemDialogFragment.OnPickItemListener() {
+        @Override
+        public void onPick(View v, int index, Item item) {
+          final NoteResource resource = fragment.getNoteResource();
+          if (item.equals(Action.CHECK.name())) {
+            fragment.subscribe(resource.check(note).subscribe(new SimpleSubscriber<Note>() {
+                @Override
+                public void onNext(Note note) {
+                  adapter.notifyDataSetChanged();
+                }
+              })
+            );
+          } else if (item.equals(Action.UNCHECK.name())) {
+            fragment.subscribe(resource.uncheck(note).subscribe(new SimpleSubscriber<Note>() {
+                @Override
+                public void onNext(Note note) {
+                  adapter.notifyDataSetChanged();
+                }
+              })
+            );
+          } else if (item.equals(Action.LOCK.name())) {
+            fragment.subscribe(resource.check(note).subscribe(new SimpleSubscriber<Note>() {
+                @Override
+                public void onNext(Note note) {
+                  adapter.notifyDataSetChanged();
+                }
+              })
+            );
+          } else if (item.equals(Action.UNLOCK.name())) {
+            fragment.subscribe(resource.check(note).subscribe(new SimpleSubscriber<Note>() {
+                @Override
+                public void onNext(Note note) {
+                  adapter.notifyDataSetChanged();
+                }
+              })
+            );
+          } else if (item.equals(Action.TRASH.name())) {
+            fragment.subscribe(resource.check(note).subscribe(new SimpleSubscriber<Note>() {
+                @Override
+                public void onNext(Note note) {
+                  adapter.notifyDataSetChanged();
+                }
+              })
+            );
+          } else if (item.equals(Action.REMINDER.name())) {
+            Intent intent = new Intent(fragment.getActivity(), ReminderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Note.BUNDLE_KEY, note);
+            fragment.startActivity(intent);
+          }
+        }
+      });
+      d.show(fragment.getFragmentManager(), "dialog");
+      return true;
+    }
+  }
+
+  static class OnClickNoteListener implements AdapterView.OnItemClickListener {
 
     private CursorAdapter cursorAdapter;
 
@@ -311,7 +446,7 @@ public class NotesFragment extends SherlockFragment implements LoaderManager.Loa
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
       final Cursor cursor = (Cursor) cursorAdapter.getItem(position);
-      final Note note = Note.fromCursor(cursor);
+      final Note note = NoteResourceManager.fromCursor(cursor);
       if (note.isLocked()) {
         final PasswordDialogFragment d = new PasswordDialogFragment();
         d.show(fragment.getFragmentManager(), "password");

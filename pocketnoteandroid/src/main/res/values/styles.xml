@@ -12,16 +12,7 @@
         <item name="android:layout_height">10dp</item>
     </style>
 
-    <style name="Theme.MyTheme" parent="Theme.Sherlock">
-        <item name="actionBarStyle">@style/Widget.MyTheme.ActionBar</item>
-        <item name="android:actionBarStyle">@style/Widget.MyTheme.ActionBar</item>
-    </style>
-
-    <style name="Widget.MyTheme.ActionBar" parent="Widget.Sherlock.ActionBar">
-        <item name="android:background">@color/purple_13</item>
-        <item name="android:showDividers">beginning</item>
-        <item name="android:divider">@color/white</item>
-        <item name="android:dividerHeight">10px</item>
+    <style name="Theme.MyTheme" parent="Theme.AppCompat.NoActionBar">
     </style>
 
     <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">

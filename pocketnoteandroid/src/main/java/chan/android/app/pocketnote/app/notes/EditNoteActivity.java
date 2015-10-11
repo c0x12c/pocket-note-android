@@ -10,16 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
+import chan.android.app.pocketnote.app.BaseActivity;
 import chan.android.app.pocketnote.app.Note;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.app.notes.colors.ColorDropdownDialogFragment;
-import chan.android.app.pocketnote.app.notes.colors.OnPickColorListener;
+import chan.android.app.pocketnote.app.notes.colors.ColorPickerDialogFragment;
 import chan.android.app.pocketnote.util.Logger;
 import chan.android.app.pocketnote.util.TextUtility;
+import chan.android.app.pocketnote.util.rx.SimpleSubscriber;
 import chan.android.app.pocketnote.util.view.SquareButton;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-public class EditNoteActivity extends SherlockFragmentActivity {
+public class EditNoteActivity extends BaseActivity {
 
   private static final int INVALID = -1;
 
@@ -46,7 +46,7 @@ public class EditNoteActivity extends SherlockFragmentActivity {
   private int year = INVALID;
 
   @Override
-  protected void onCreate(Bundle bundle) {
+  public void onCreate(Bundle bundle) {
     super.onCreate(bundle);
     setContentView(R.layout.editor);
 
@@ -61,7 +61,7 @@ public class EditNoteActivity extends SherlockFragmentActivity {
       public void onClick(View v) {
         FragmentManager fm = getSupportFragmentManager();
         ColorDropdownDialogFragment colorPicker = new ColorDropdownDialogFragment();
-        colorPicker.setOnPickColorListener(new OnPickColorListener() {
+        colorPicker.setOnPickColorListener(new ColorPickerDialogFragment.OnPickColorListener() {
           @Override
           public void onPick(int color) {
             chosenColor = color;
@@ -79,7 +79,7 @@ public class EditNoteActivity extends SherlockFragmentActivity {
     if (extra != null) {
       editingNote = extra.getParcelable(Note.BUNDLE_KEY);
       if (editingNote != null) {
-        originalNote = new Note(editingNote.getTitle(), editingNote.getContent(), editingNote.getModifiedTime(), editingNote.getColor());
+        originalNote = new Note(editingNote.getId(), editingNote.getTitle(), editingNote.getContent(), editingNote.getModifiedTime(), editingNote.getColor());
         noteEditor.setText(editingNote.getContent());
         editTextTitle.setText(editingNote.getTitle());
         chosenColor = editingNote.getColor();
@@ -138,16 +138,27 @@ public class EditNoteActivity extends SherlockFragmentActivity {
   public void onBackPressed() {
     final Note note = getNote();
     if (note != null && !oldNote) {
-      PocketNoteManager.getPocketNoteManager().add(note);
-      note.setColor(chosenColor);
-      Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+      subscribe(noteResource.add(note).subscribe(new SimpleSubscriber<Note>() {
+          @Override
+          public void onNext(Note note) {
+            note.setColor(chosenColor);
+            Toast.makeText(EditNoteActivity.this, "Saved", Toast.LENGTH_LONG).show();
+          }
+        })
+      );
     } else if (oldNote) {
       editingNote.setTitle(note.getTitle());
       editingNote.setContent(note.getContent());
       editingNote.setColor(note.getColor());
       if (different(originalNote, editingNote)) {
-        PocketNoteManager.getPocketNoteManager().edit(editingNote);
-        Toast.makeText(this, "Updated", Toast.LENGTH_LONG).show();
+        subscribe(noteResource.edit(editingNote).subscribe(new SimpleSubscriber<Note>() {
+            @Override
+            public void onNext(Note note) {
+              Toast.makeText(EditNoteActivity.this, "Updated", Toast.LENGTH_LONG).show();
+              Toast.makeText(EditNoteActivity.this, "Saved", Toast.LENGTH_LONG).show();
+            }
+          })
+        );
       }
     }
 

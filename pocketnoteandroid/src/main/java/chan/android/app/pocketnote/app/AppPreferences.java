@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import chan.android.app.pocketnote.app.db.NoteDbTable;
-import chan.android.app.pocketnote.util.HashUtility;
+import chan.android.app.pocketnote.util.Hasher;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,16 +18,17 @@ public class AppPreferences {
   private static final int DEFAULT_COLOR = Color.parseColor("#f4da70");
 
   private static final int VIEW_AS_LIST = 0;
+
   private static final int VIEW_AS_GRID = 1;
-  private static final Set<String> AVAILABLE_COLUMNS = new HashSet<String>();
+
+  private static final Set<String> AVAILABLE_COLUMNS = new HashSet<>();
+
   private static SharedPreferences prefs;
 
   static {
     AVAILABLE_COLUMNS.add(NoteDbTable.COLUMN_CONTENT);
     AVAILABLE_COLUMNS.add(NoteDbTable.COLUMN_TITLE);
   }
-
-  ;
 
   public static void initialize(Context context) {
     if (prefs == null) {
@@ -39,7 +40,7 @@ public class AppPreferences {
     if (!AVAILABLE_COLUMNS.contains(column)) {
       throw new RuntimeException("Invalid alphabet column: " + column);
     }
-    prefs.edit().putString(Key.ALPHABET_SORT_COLUMN.name(), column).commit();
+    prefs.edit().putString(Key.ALPHABET_SORT_COLUMN.name(), column).apply();
   }
 
   public static String getDefaultAlphabetSortColumn() {
@@ -48,7 +49,7 @@ public class AppPreferences {
 
   public static void saveDefaultCollectionView(int index) {
     if (index == VIEW_AS_LIST || index == VIEW_AS_GRID) {
-      prefs.edit().putInt(Key.COLLECTION_VIEW.name(), index).commit();
+      prefs.edit().putInt(Key.COLLECTION_VIEW.name(), index).apply();
     }
   }
 
@@ -57,7 +58,7 @@ public class AppPreferences {
   }
 
   public static void saveDefaultSortBy(int index) {
-    prefs.edit().putInt(Key.SORT_BY.name(), index).commit();
+    prefs.edit().putInt(Key.SORT_BY.name(), index).apply();
   }
 
   public static int getDefaultSortBy() {
@@ -65,7 +66,7 @@ public class AppPreferences {
   }
 
   public static void saveDefaultColor(int color) {
-    prefs.edit().putInt(Key.COLOR.name(), color).commit();
+    prefs.edit().putInt(Key.COLOR.name(), color).apply();
   }
 
   public static int getDefaultColor() {
@@ -73,7 +74,7 @@ public class AppPreferences {
   }
 
   public static void savePassword(String password) {
-    prefs.edit().putString(Key.PASSWORD.name(), HashUtility.md5(password)).commit();
+    prefs.edit().putString(Key.PASSWORD.name(), Hasher.md5(password)).apply();
   }
 
   public static String getPassword() {
@@ -82,15 +83,15 @@ public class AppPreferences {
 
   public static boolean hasCorrectPassword(String password) {
     String actual = getPassword();
-    return actual.equals(HashUtility.md5(password));
+    return actual.equals(Hasher.md5(password));
   }
 
   public static void saveUserPhotoFilePath(String imagePath) {
-    prefs.edit().putString(Key.USER_PHOTO.name(), imagePath).commit();
+    prefs.edit().putString(Key.USER_PHOTO.name(), imagePath).apply();
   }
 
   public static void saveUserTempPhotoFilePath(String imagePath) {
-    prefs.edit().putString(Key.USER_PHOTO_TEMP.name(), imagePath).commit();
+    prefs.edit().putString(Key.USER_PHOTO_TEMP.name(), imagePath).apply();
   }
 
   public static String getUserTempPhotoFilePath() {
@@ -102,7 +103,7 @@ public class AppPreferences {
   }
 
   public static void saveUserName(String name) {
-    prefs.edit().putString(Key.USER_NAME.name(), name).commit();
+    prefs.edit().putString(Key.USER_NAME.name(), name).apply();
   }
 
   public static String getUserName() {

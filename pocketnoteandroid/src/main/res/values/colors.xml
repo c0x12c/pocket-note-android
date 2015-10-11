@@ -103,4 +103,8 @@
 
     <color name="saturday">#006887</color>
     <color name="sunday">#ad2e11</color>
+
+    <color name="btn_context_menu_normal">#ffffff</color>
+    <color name="btn_context_menu_pressed">#40000000</color>
+    <color name="btn_context_menu_text_red">#ffff0000</color>
 </resources>

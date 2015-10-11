@@ -2,11 +2,11 @@ package chan.android.app.pocketnote.app.calendar;
 
 interface Swiper {
 
-  public void onSwipeLeft();
+  void onSwipeLeft();
 
-  public void onSwipeRight();
+  void onSwipeRight();
 
-  public void onSwipeUp();
+  void onSwipeUp();
 
-  public void onSwipeDown();
+  void onSwipeDown();
 }

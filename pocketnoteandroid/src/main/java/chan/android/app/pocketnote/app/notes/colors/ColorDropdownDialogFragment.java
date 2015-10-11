@@ -17,13 +17,13 @@ public class ColorDropdownDialogFragment extends DialogFragment implements View.
   public static final String TAG = ColorDropdownDialogFragment.class.getSimpleName();
 
 
-  private OnPickColorListener listener;
+  private ColorPickerDialogFragment.OnPickColorListener listener;
 
   public ColorDropdownDialogFragment() {
     // ...
   }
 
-  public void setOnPickColorListener(OnPickColorListener listener) {
+  public void setOnPickColorListener(ColorPickerDialogFragment.OnPickColorListener listener) {
     this.listener = listener;
   }
 

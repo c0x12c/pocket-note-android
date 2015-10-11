@@ -10,7 +10,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import chan.android.app.pocketnote.app.AppResources;
 import chan.android.app.pocketnote.app.Note;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.app.notes.EditNoteActivity;
 
 public class NotificationCenter {
@@ -27,13 +26,13 @@ public class NotificationCenter {
     final Notification n = buildNotification(context, note);
     n.flags |= Notification.FLAG_NO_CLEAR;
     final NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-    manager.notify(PocketNoteManager.getPocketNoteManager().getId(note), n);
+    manager.notify(note.getId(), n);
   }
 
   public void notify(Context context, Note note) {
     final Notification n = buildNotification(context, note);
     final NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-    manager.notify(PocketNoteManager.getPocketNoteManager().getId(note), n);
+    manager.notify(note.getId(), n);
   }
 
   private Notification buildNotification(Context context, Note note) {

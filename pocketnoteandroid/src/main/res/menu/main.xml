@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <group android:checkableBehavior="single">
+
+    <item
+      android:id="@+id/main___note"
+      android:icon="@drawable/ic_drawer_note"
+      android:title="Notes"
+      />
+    <item
+      android:id="@+id/main___calendar"
+      android:icon="@drawable/ic_drawer_calendar"
+      android:title="Calendar"
+      />
+    <item
+      android:id="@+id/main___trash"
+      android:icon="@drawable/ic_drawer_trash"
+      android:title="Trash"
+      />
+    <item
+      android:id="@+id/main___settings"
+      android:icon="@drawable/ic_drawer_settings"
+      android:title="Settings"
+      />
+  </group>
+</menu>

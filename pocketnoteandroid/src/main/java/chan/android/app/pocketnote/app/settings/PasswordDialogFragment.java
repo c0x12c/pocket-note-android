@@ -9,12 +9,16 @@ import chan.android.app.pocketnote.R;
 
 public class PasswordDialogFragment extends DialogFragment {
 
-  private OnPasswordEnterListener listener;
-  private EditText password;
-  private Button enter;
+  public static final String TAG = PasswordDialogFragment.class.getSimpleName();
 
-  public PasswordDialogFragment() {
-    //
+  private OnPasswordEnterListener listener;
+
+  private EditText passwordEditor;
+
+  private Button enterButton;
+
+  public static PasswordDialogFragment fragment() {
+    return new PasswordDialogFragment();
   }
 
   public void setOnPasswordEnterListener(OnPasswordEnterListener listener) {
@@ -26,21 +30,21 @@ public class PasswordDialogFragment extends DialogFragment {
   }
 
   public void showErrorMessage(String errorMessage) {
-    password.setError(errorMessage);
+    passwordEditor.setError(errorMessage);
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View root = inflater.inflate(R.layout.password_dialog, container, false);
-    password = (EditText) root.findViewById(R.id.password_dialog_$_edittext_password);
-    password.requestFocus();
-    enter = (Button) root.findViewById(R.id.password_dialog_$_button_enter);
-    enter.setOnClickListener(new View.OnClickListener() {
+    passwordEditor = (EditText) root.findViewById(R.id.password_dialog_$_edittext_password);
+    passwordEditor.requestFocus();
+    enterButton = (Button) root.findViewById(R.id.password_dialog_$_button_enter);
+    enterButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        enter.setError(null);
+        enterButton.setError(null);
         if (listener != null) {
-          listener.onEnter(password.getText().toString());
+          listener.onEnter(passwordEditor.getText().toString());
         }
       }
     });
@@ -51,6 +55,6 @@ public class PasswordDialogFragment extends DialogFragment {
 
   public interface OnPasswordEnterListener {
 
-    public void onEnter(String password);
+    void onEnter(String password);
   }
 }

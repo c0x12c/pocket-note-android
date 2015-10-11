@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.net.Uri;
 import chan.android.app.pocketnote.app.Note;
 import chan.android.app.pocketnote.app.NoteDateFormatter;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.app.reminder.alarm.AlarmReceiver;
 import chan.android.app.pocketnote.util.Logger;
 
@@ -21,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class NoteReminderScheduler extends AbstractReminderScheduler {
 
   private static final String PREFIX = "pocketnote://";
+
   private static AbstractReminderScheduler scheduler;
 
   private NoteReminderScheduler(Context context) {
@@ -75,12 +75,10 @@ public class NoteReminderScheduler extends AbstractReminderScheduler {
    * @return
    */
   private Intent buildNoteIntent(final Note note) {
-    final PocketNoteManager manager = PocketNoteManager.getPocketNoteManager();
-    final int id = manager.getId(note);
     final Intent intent = new Intent(context, AlarmReceiver.class);
     intent.putExtra(Note.BUNDLE_KEY, note);
-    intent.setData(Uri.parse(PREFIX + id));
-    intent.setAction(String.valueOf(id));
+    intent.setData(Uri.parse(PREFIX + note.getId()));
+    intent.setAction(String.valueOf(note.getId()));
     return intent;
   }
 }

@@ -1,7 +1,6 @@
 package chan.android.app.pocketnote.app.calendar;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +10,46 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import chan.android.app.pocketnote.R;
+import chan.android.app.pocketnote.app.BaseDialogFragment;
 import chan.android.app.pocketnote.app.Note;
-import com.actionbarsherlock.app.SherlockFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
-class NoteListDialogFragment extends DialogFragment implements NoteAdapterNotifier {
+public class NoteListDialogFragment extends BaseDialogFragment implements NoteAdapterNotifier {
+
+  public static final String TAG = NoteListDialogFragment.class.getSimpleName();
+
+  interface Args {
+
+    String TITLE = TAG + ".title";
+
+    String NOTES = TAG + ".notes";
+  }
 
   public OnDialogClickListener listener;
-  public NoteItemAdapter adapter;
-  private List<Note> notes;
-  private String title;
-  private SherlockFragment fragment;
 
-  public NoteListDialogFragment(SherlockFragment fragment, String title, List<Note> notes) {
-    this.fragment = fragment;
-    this.title = title;
-    this.notes = notes;
+  public NoteItemAdapter adapter;
+
+  private ArrayList<Note> notes;
+
+  private String title;
+
+  public static NoteListDialogFragment fragment(String title, ArrayList<Note> notes) {
+    Bundle args = new Bundle();
+    args.putString(Args.TITLE, title);
+    args.putParcelableArrayList(Args.NOTES, notes);
+    NoteListDialogFragment d = new NoteListDialogFragment();
+    d.setArguments(args);
+    return d;
+  }
+
+  @Override
+  public void onCreate(Bundle bundle) {
+    super.onCreate(bundle);
+    final Bundle args = getArguments();
+    title = args.getString(Args.TITLE);
+    notes = args.getParcelableArrayList(Args.NOTES);
   }
 
   @Override
@@ -71,7 +93,8 @@ class NoteListDialogFragment extends DialogFragment implements NoteAdapterNotifi
         }
       }
     });
-    listView.setOnItemLongClickListener(new OnLongClickCalendarNoteListener(this));
+    // TODO:
+    // listView.setOnItemLongClickListener(new OnLongClickCalendarNoteListener(this));
     add.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -96,12 +119,12 @@ class NoteListDialogFragment extends DialogFragment implements NoteAdapterNotifi
 
   public interface OnDialogClickListener {
 
-    public void onCancel();
+    void onCancel();
 
-    public void onAdd();
+    void onAdd();
 
-    public void onEditNote(final Note note);
+    void onEditNote(final Note note);
 
-    public void onNotesChanged();
+    void onNotesChanged();
   }
 }

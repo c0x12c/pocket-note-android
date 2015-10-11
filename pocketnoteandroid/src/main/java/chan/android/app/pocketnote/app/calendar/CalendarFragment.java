@@ -4,27 +4,22 @@ package chan.android.app.pocketnote.app.calendar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.SearchView;
+import android.view.*;
 import android.widget.*;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
+import chan.android.app.pocketnote.app.BaseFragment;
 import chan.android.app.pocketnote.app.Note;
-import chan.android.app.pocketnote.app.db.NoteManager;
-import chan.android.app.pocketnote.app.db.PocketNoteManager;
 import chan.android.app.pocketnote.app.notes.EditNoteActivity;
 import chan.android.app.pocketnote.app.settings.PasswordDialogFragment;
 import chan.android.app.pocketnote.app.trash.ConfirmDialogFragment;
 import chan.android.app.pocketnote.util.Logger;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
+import chan.android.app.pocketnote.util.rx.SimpleSubscriber;
 
 import java.util.*;
 
-public class CalendarFragment extends SherlockFragment implements View.OnTouchListener, NoteAdapterNotifier {
+public class CalendarFragment extends BaseFragment implements View.OnTouchListener, NoteAdapterNotifier {
 
   public static final String TAG = "Calendar";
   private static final int FLIPPER_CALENDAR = 0;
@@ -44,23 +39,38 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
     "November",
     "December"
   };
+
   private static final int REQUEST_CODE = 4;
+
   private static final int MAX_DAY_SPOTS = 42;
-  public NoteItemAdapter adapterSearch;
+
+  public NoteItemAdapter noteAdapter;
+
   private int month;
+
   private int year;
+
   private List<CalendarItem> calendarItems;
-  private Map<Integer, List<Note>> noteMap;
-  private GridView gridViewDays;
+
+  private Map<Integer, ArrayList<Note>> noteMap;
+
+  private GridView daysGridView;
+
   private TextView textViewMonth;
+
   private RelativeLayout relativeLayoutRoot;
+
   private OnSwipeListener swipeListener;
-  private CalendarItemAdapter adapter;
+
+  private CalendarItemAdapter calendarAdapter;
+
   private ViewFlipper viewFlipper;
-  private ListView listViewSearch;
+
+  private ListView listView;
+
   private String savedSearchQuery;
 
-  public static CalendarFragment newInstance() {
+  public static CalendarFragment instance() {
     return new CalendarFragment();
   }
 
@@ -76,18 +86,13 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     menu.clear();
     inflater.inflate(R.menu.calendar, menu);
-    SearchView searchView = (SearchView) menu.findItem(R.id.calendar_menu_$_search).getActionView();
+    SearchView searchView = (SearchView) menu.findItem(R.id.calendar___search).getActionView();
     SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
         if (!query.isEmpty()) {
           savedSearchQuery = query;
-          boolean notEmpty = refreshSearchList(query);
-          if (notEmpty) {
-            viewFlipper.setDisplayedChild(FLIPPER_SEARCH);
-          } else {
-            viewFlipper.setDisplayedChild(FLIPPER_NOT_FOUND);
-          }
+          refreshSearchList(query);
         }
         return true;
       }
@@ -105,12 +110,19 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
     super.onCreateOptionsMenu(menu, inflater);
   }
 
-  private boolean refreshSearchList(String query) {
-    NoteManager manager = PocketNoteManager.getPocketNoteManager();
-    List<Note> notes = manager.searchInCalendar(buildSearchQuery(query));
-    adapterSearch.setNotes(notes);
-    adapterSearch.notifyDataSetChanged();
-    return !notes.isEmpty();
+  private void refreshSearchList(String query) {
+    subscribe(noteResource.searchInCalendar(buildSearchQuery(query)).subscribe(new SimpleSubscriber<List<Note>>() {
+      @Override
+      public void onNext(List<Note> notes) {
+        noteAdapter.setNotes(notes);
+        noteAdapter.notifyDataSetChanged();
+        if (!notes.isEmpty()) {
+          viewFlipper.setDisplayedChild(FLIPPER_SEARCH);
+        } else {
+          viewFlipper.setDisplayedChild(FLIPPER_NOT_FOUND);
+        }
+      }
+    }));
   }
 
   private String buildSearchQuery(String query) {
@@ -123,7 +135,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   @Override
-  public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {
     return super.onOptionsItemSelected(item);
   }
 
@@ -164,14 +176,15 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
     Logger.e("CalendarFragment.onCreateView()");
     final View root = inflater.inflate(R.layout.calendar, container, false);
     viewFlipper = (ViewFlipper) root.findViewById(R.id.calendar_$_viewflipper);
-    listViewSearch = (ListView) root.findViewById(R.id.calendar_$_listview_notes);
-    adapterSearch = new NoteItemAdapter(getActivity(), new ArrayList<Note>());
-    listViewSearch.setAdapter(adapterSearch);
-    listViewSearch.setOnItemLongClickListener(new OnLongClickCalendarNoteSearchListener(this));
-    listViewSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    listView = (ListView) root.findViewById(R.id.calendar_$_listview_notes);
+    noteAdapter = new NoteItemAdapter(getActivity(), new ArrayList<Note>());
+    listView.setAdapter(noteAdapter);
+    // TODO:
+    // listView.setOnItemLongClickListener(new OnLongClickCalendarNoteSearchListener(this));
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final Note note = adapterSearch.getItem(position);
+        final Note note = noteAdapter.getItem(position);
         if (note.isLocked()) {
           final PasswordDialogFragment d = new PasswordDialogFragment();
           d.show(getFragmentManager(), "password_dialog");
@@ -192,10 +205,10 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
       }
     });
 
-    gridViewDays = (GridView) root.findViewById(R.id.calendar_$_gridview);
+    daysGridView = (GridView) root.findViewById(R.id.calendar_$_gridview);
     textViewMonth = (TextView) root.findViewById(R.id.calendar_$_textview_month);
     relativeLayoutRoot = (RelativeLayout) root.findViewById(R.id.calendar_$_linearlayout_parent);
-    swipeListener = new OnSwipeListener(getSherlockActivity(), new Swiper() {
+    swipeListener = new OnSwipeListener(getActivity(), new Swiper() {
       @Override
       public void onSwipeLeft() {
         Logger.e("Swipe left");
@@ -256,7 +269,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
       public void onClick(View v) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog dialog = new DatePickerDialog(
-          getSherlockActivity(),
+          getActivity(),
           new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -304,15 +317,18 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   private void loadNotes(int month, int year) {
-    NoteManager manager = PocketNoteManager.getPocketNoteManager();
-    List<Note> notes = manager.getNotes(month, year);
-    noteMap.clear();
-    for (Note note : notes) {
-      if (!noteMap.containsKey(note.getDay())) {
-        noteMap.put(note.getDay(), new ArrayList<Note>());
+    subscribe(noteResource.getNotes(month, year).subscribe(new SimpleSubscriber<List<Note>>() {
+      @Override
+      public void onNext(List<Note> notes) {
+        noteMap.clear();
+        for (Note note : notes) {
+          if (!noteMap.containsKey(note.getDay())) {
+            noteMap.put(note.getDay(), new ArrayList<Note>());
+          }
+          noteMap.get(note.getDay()).add(note);
+        }
       }
-      noteMap.get(note.getDay()).add(note);
-    }
+    }));
   }
 
   private void buildMonthView(final int month, final int year) {
@@ -375,14 +391,14 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   public void display(final int month, final int year) {
-    adapter = new CalendarItemAdapter(getSherlockActivity(), calendarItems);
-    gridViewDays.setAdapter(adapter);
-    gridViewDays.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    calendarAdapter = new CalendarItemAdapter(getActivity(), calendarItems);
+    daysGridView.setAdapter(calendarAdapter);
+    daysGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final CalendarItem item = calendarItems.get(position);
         if (!item.isIgnored()) {
-          final List<Note> notes = item.getNotes();
+          final ArrayList<Note> notes = item.getNotes();
           if (notes == null || notes.isEmpty()) {
             showConfirmDialog(item.getDay());
           } else {
@@ -394,8 +410,8 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
     });
   }
 
-  private void displayListDialog(final int day, final int month, final int year, final List<Note> notes) {
-    final NoteListDialogFragment d = new NoteListDialogFragment(this, getDayDescription(day, month, year), notes);
+  private void displayListDialog(final int day, final int month, final int year, final ArrayList<Note> notes) {
+    final NoteListDialogFragment d = NoteListDialogFragment.fragment(getDayDescription(day, month, year), notes);
     d.setOnDialogClickListener(
       new NoteListDialogFragment.OnDialogClickListener() {
         @Override
@@ -444,10 +460,11 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   private void showConfirmDialog(final int day) {
-    ConfirmDialogFragment d = new ConfirmDialogFragment(
+    ConfirmDialogFragment d = ConfirmDialogFragment.fragment(
       "Add new note on " + getDayDescription(day, month, year),
       "Cancel",
-      "Add");
+      "Add"
+    );
     d.setOnConfirmListener(new ConfirmDialogFragment.OnConfirmListener() {
       @Override
       public void onEnter(boolean ok) {
@@ -460,7 +477,7 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
   }
 
   private void launchEditNoteActivity(int day, int month, int year, Note note) {
-    Intent intent = new Intent(getSherlockActivity(), EditNoteActivity.class);
+    Intent intent = new Intent(getActivity(), EditNoteActivity.class);
     if (note != null) {
       intent.putExtra(Note.BUNDLE_KEY, note);
     } else {
@@ -483,17 +500,17 @@ public class CalendarFragment extends SherlockFragment implements View.OnTouchLi
 
   @Override
   public void notifyAdapter() {
-    adapterSearch.notifyDataSetChanged();
+    noteAdapter.notifyDataSetChanged();
   }
 
   @Override
   public List<Note> getNotes() {
-    return adapterSearch.getNotes();
+    return noteAdapter.getNotes();
   }
 
   @Override
   public void setNotes(List<Note> notes) {
-    adapterSearch.setNotes(notes);
-    adapterSearch.notifyDataSetChanged();
+    noteAdapter.setNotes(notes);
+    noteAdapter.notifyDataSetChanged();
   }
 }
