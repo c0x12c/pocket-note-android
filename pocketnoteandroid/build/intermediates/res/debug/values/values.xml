@@ -1683,7 +1683,7 @@
     </style>
     <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/values/styles.xml -->
     <eat-comment/>
-    <style name="Theme.MyTheme" parent="Theme.AppCompat">
+    <style name="Theme.MyTheme" parent="Theme.AppCompat.NoActionBar">
     </style>
     <!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values/values.xml -->
     <eat-comment/>

@@ -44,7 +44,7 @@ public interface ResourceFactory {
 
     @Override
     public NoteResource provideNoteResource() {
-      return provideNoteResource();
+      return noteResource;
     }
 
     private static Main singleton;

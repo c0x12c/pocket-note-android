@@ -35,7 +35,7 @@ public class TrashFragment extends BaseFragment implements LoaderManager.LoaderC
 
   private ViewFlipper viewFlipper;
 
-  public static TrashFragment newInstance() {
+  public static TrashFragment instance() {
     return new TrashFragment();
   }
 

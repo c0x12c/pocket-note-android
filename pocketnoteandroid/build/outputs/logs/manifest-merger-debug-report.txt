@@ -13,8 +13,89 @@ ADDED from AndroidManifest.xml:2:1
 		ADDED from AndroidManifest.xml:4:11
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-uses-sdk
+uses-permission#android.permission.VIBRATE
 ADDED from AndroidManifest.xml:7:5
+	android:name
+		ADDED from AndroidManifest.xml:7:22
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:8:5
+	android:name
+		ADDED from AndroidManifest.xml:8:22
+uses-permission#android.permission.INTERNET
+ADDED from AndroidManifest.xml:9:5
+	android:name
+		ADDED from AndroidManifest.xml:9:22
+uses-permission#android.permission.CAMERA
+ADDED from AndroidManifest.xml:10:5
+	android:name
+		ADDED from AndroidManifest.xml:10:22
+application
+ADDED from AndroidManifest.xml:12:5
+MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:design:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:appcompat-v7:23.0.1:22:5
+MERGED from com.android.support:support-v4:23.0.1:22:5
+	android:label
+		ADDED from AndroidManifest.xml:14:13
+	android:icon
+		ADDED from AndroidManifest.xml:16:13
+	android:theme
+		ADDED from AndroidManifest.xml:15:13
+	android:name
+		ADDED from AndroidManifest.xml:13:13
+activity#chan.android.app.pocketnote.MainActivity
+ADDED from AndroidManifest.xml:17:9
+	android:label
+		ADDED from AndroidManifest.xml:19:17
+	android:name
+		ADDED from AndroidManifest.xml:18:17
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:20:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:21:17
+	android:name
+		ADDED from AndroidManifest.xml:21:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:22:17
+	android:name
+		ADDED from AndroidManifest.xml:22:27
+activity#chan.android.app.pocketnote.app.notes.EditNoteActivity
+ADDED from AndroidManifest.xml:26:9
+	android:name
+		ADDED from AndroidManifest.xml:26:19
+activity#chan.android.app.pocketnote.app.settings.ChangePasswordActivity
+ADDED from AndroidManifest.xml:27:9
+	android:name
+		ADDED from AndroidManifest.xml:27:19
+activity#chan.android.app.pocketnote.app.settings.NewPasswordActivity
+ADDED from AndroidManifest.xml:28:9
+	android:name
+		ADDED from AndroidManifest.xml:28:19
+activity#chan.android.app.pocketnote.app.reminder.ReminderActivity
+ADDED from AndroidManifest.xml:29:9
+	android:name
+		ADDED from AndroidManifest.xml:29:19
+activity#chan.android.app.pocketnote.app.PhotoViewActivity
+ADDED from AndroidManifest.xml:30:9
+	android:name
+		ADDED from AndroidManifest.xml:30:19
+provider#chan.android.app.pocketnote.app.db.NoteContentProvider
+ADDED from AndroidManifest.xml:32:9
+	android:multiprocess
+		ADDED from AndroidManifest.xml:34:17
+	android:authorities
+		ADDED from AndroidManifest.xml:35:17
+	android:name
+		ADDED from AndroidManifest.xml:33:17
+receiver#chan.android.app.pocketnote.app.reminder.alarm.AlarmReceiver
+ADDED from AndroidManifest.xml:37:9
+	android:name
+		ADDED from AndroidManifest.xml:37:19
+uses-sdk
+INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:23.0.1:20:5
 MERGED from com.android.support:support-v4:23.0.1:20:5
 MERGED from com.android.support:support-v4:23.0.1:20:5
@@ -26,87 +107,5 @@ MERGED from com.android.support:support-v4:23.0.1:20:5
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
 	android:minSdkVersion
-		ADDED from AndroidManifest.xml:7:15
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-uses-permission#android.permission.VIBRATE
-ADDED from AndroidManifest.xml:8:5
-	android:name
-		ADDED from AndroidManifest.xml:8:22
-uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from AndroidManifest.xml:9:5
-	android:name
-		ADDED from AndroidManifest.xml:9:22
-uses-permission#android.permission.INTERNET
-ADDED from AndroidManifest.xml:10:5
-	android:name
-		ADDED from AndroidManifest.xml:10:22
-uses-permission#android.permission.CAMERA
-ADDED from AndroidManifest.xml:11:5
-	android:name
-		ADDED from AndroidManifest.xml:11:22
-application
-ADDED from AndroidManifest.xml:13:5
-MERGED from com.android.support:appcompat-v7:23.0.1:22:5
-MERGED from com.android.support:support-v4:23.0.1:22:5
-MERGED from com.android.support:support-v4:23.0.1:22:5
-MERGED from com.android.support:design:23.0.1:22:5
-MERGED from com.android.support:support-v4:23.0.1:22:5
-MERGED from com.android.support:appcompat-v7:23.0.1:22:5
-MERGED from com.android.support:support-v4:23.0.1:22:5
-	android:label
-		ADDED from AndroidManifest.xml:15:13
-	android:icon
-		ADDED from AndroidManifest.xml:17:13
-	android:theme
-		ADDED from AndroidManifest.xml:16:13
-	android:name
-		ADDED from AndroidManifest.xml:14:13
-activity#chan.android.app.pocketnote.MainActivity
-ADDED from AndroidManifest.xml:18:9
-	android:label
-		ADDED from AndroidManifest.xml:20:17
-	android:name
-		ADDED from AndroidManifest.xml:19:17
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:21:13
-action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:22:17
-	android:name
-		ADDED from AndroidManifest.xml:22:25
-category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:23:17
-	android:name
-		ADDED from AndroidManifest.xml:23:27
-activity#chan.android.app.pocketnote.app.notes.EditNoteActivity
-ADDED from AndroidManifest.xml:27:9
-	android:name
-		ADDED from AndroidManifest.xml:27:19
-activity#chan.android.app.pocketnote.app.settings.ChangePasswordActivity
-ADDED from AndroidManifest.xml:28:9
-	android:name
-		ADDED from AndroidManifest.xml:28:19
-activity#chan.android.app.pocketnote.app.settings.NewPasswordActivity
-ADDED from AndroidManifest.xml:29:9
-	android:name
-		ADDED from AndroidManifest.xml:29:19
-activity#chan.android.app.pocketnote.app.reminder.ReminderActivity
-ADDED from AndroidManifest.xml:30:9
-	android:name
-		ADDED from AndroidManifest.xml:30:19
-activity#chan.android.app.pocketnote.app.PhotoViewActivity
-ADDED from AndroidManifest.xml:31:9
-	android:name
-		ADDED from AndroidManifest.xml:31:19
-provider#chan.android.app.pocketnote.app.db.NoteContentProvider
-ADDED from AndroidManifest.xml:33:9
-	android:multiprocess
-		ADDED from AndroidManifest.xml:35:17
-	android:authorities
-		ADDED from AndroidManifest.xml:36:17
-	android:name
-		ADDED from AndroidManifest.xml:34:17
-receiver#chan.android.app.pocketnote.app.reminder.alarm.AlarmReceiver
-ADDED from AndroidManifest.xml:38:9
-	android:name
-		ADDED from AndroidManifest.xml:38:19

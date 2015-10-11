@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.StrictMode;
 import chan.android.app.pocketnote.app.AppPreferences;
 import chan.android.app.pocketnote.app.AppResources;
+import chan.android.app.pocketnote.app.ResourceFactory;
 import chan.android.app.pocketnote.util.Logger;
 
 public class PocketNoteApplication extends Application {
@@ -29,6 +30,8 @@ public class PocketNoteApplication extends Application {
 
       // LeakCanary.install(this);
     }
+
+    ResourceFactory.Main.initialize(this);
   }
 
   @Override

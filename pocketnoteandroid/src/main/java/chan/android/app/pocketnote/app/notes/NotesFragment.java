@@ -67,7 +67,7 @@ public class NotesFragment extends BaseFragment implements LoaderManager.LoaderC
 
   private int currentCollectionViewIndex = 0;
 
-  public static NotesFragment newInstance() {
+  public static NotesFragment instance() {
     return new NotesFragment();
   }
 

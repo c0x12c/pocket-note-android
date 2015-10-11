@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="match_parent"
+  android:layout_height="100dp"
+  >
+  <chan.android.app.pocketnote.util.view.CircularImageView
+    android:id="@+id/main_header___imageview_photo"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:src="@drawable/ic_user"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="10dp"
+    />
+
+  <TextView
+    android:id="@+id/main_header___textview_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Anonymous"
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="15dp"
+    android:textColor="@color/white"
+    android:textSize="18sp"
+    />
+</LinearLayout>

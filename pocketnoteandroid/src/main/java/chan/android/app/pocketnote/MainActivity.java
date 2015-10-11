@@ -6,22 +6,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 import chan.android.app.pocketnote.app.AppPreferences;
 import chan.android.app.pocketnote.app.calendar.CalendarFragment;
 import chan.android.app.pocketnote.app.notes.NotesFragment;
@@ -29,66 +24,88 @@ import chan.android.app.pocketnote.app.settings.SettingsFragment;
 import chan.android.app.pocketnote.app.trash.TrashFragment;
 import chan.android.app.pocketnote.util.Logger;
 import chan.android.app.pocketnote.util.view.CircularImageView;
-import chan.android.app.pocketnote.util.view.NavigationDrawerAdapter;
-import chan.android.app.pocketnote.util.view.NavigationDrawerItem;
-import chan.android.app.pocketnote.util.view.NavigationMenuItem;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
   private static final int INTENT_TAKE_PHOTO = 0;
+
   private static final int INTENT_CHOOSE_PHOTO = 1;
 
-  private NavigationDrawerItem[] DRAWER_ITEMS;
-  private DrawerLayout drawerLayout;
-  private LinearLayout drawerContainer;
-  private ListView drawerList;
-  private ActionBarDrawerToggle drawerToggle;
   private CircularImageView photoImageView;
-  private TextView username;
-  private CharSequence drawerTitle;
-  private CharSequence title;
-  private Fragment[] fragments;
+
   private Uri imageUri;
-  private Fragment fragmentNote;
-  private Fragment fragmentCalendar;
-  private Fragment fragmentTrash;
-  private Fragment fragmentSettings;
-  private int fragIndex;
+
+  private NavigationView navigationView;
+
+  private Toolbar toolbar;
+
+  private DrawerLayout drawerLayout;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.main);
+    setContentView(
+      R.layout.main);
+    drawerLayout = (DrawerLayout) findViewById(
+      R.id.main___drawerlayout);
+    navigationView = (NavigationView) findViewById(
+      R.id.main___navigation_view);
+    toolbar = (Toolbar) findViewById(
+      R.id.main___toolbar);
+    initialize();
+  }
 
-    setupActionBar();
-    setupNavigationDrawer();
-
-    fragmentNote = NotesFragment.newInstance();
-    fragmentTrash = TrashFragment.newInstance();
-    fragmentCalendar = CalendarFragment.fragment();
-    fragmentSettings = SettingsFragment.newInstance();
-
-    fragments = new Fragment[4];
-    fragments[0] = fragmentNote;
-    fragments[1] = fragmentCalendar;
-    fragments[2] = fragmentTrash;
-    fragments[3] = fragmentSettings;
-
+  private void replaceFragment(Fragment fragment, String tag) {
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.add(R.id.content, fragmentNote, NotesFragment.TAG);
-    transaction.add(R.id.content, fragmentTrash, TrashFragment.TAG);
-    transaction.add(R.id.content, fragmentCalendar, CalendarFragment.TAG);
-    transaction.add(R.id.content, fragmentSettings, SettingsFragment.TAG);
-
-    if (savedInstanceState == null) {
-      transaction.hide(fragmentCalendar);
-      transaction.hide(fragmentTrash);
-      transaction.hide(fragmentSettings);
-      transaction.show(fragmentNote);
-      fragIndex = 0;
-    }
+    transaction.replace(R.id.main___framelayout_container, fragment, tag);
     transaction.commit();
+  }
+
+  private void initialize() {
+    setSupportActionBar(toolbar);
+    navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+      @Override
+      public boolean onNavigationItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+          case R.id.main___note:
+            replaceFragment(NotesFragment.instance(), NotesFragment.TAG);
+            return true;
+          case R.id.main___calendar:
+            replaceFragment(CalendarFragment.instance(), NotesFragment.TAG);
+            return true;
+          case R.id.main___trash:
+            replaceFragment(TrashFragment.instance(), NotesFragment.TAG);
+            return true;
+          case R.id.main___settings:
+            replaceFragment(SettingsFragment.instance(), NotesFragment.TAG);
+            return true;
+        }
+        return false;
+      }
+    });
+
+
+    // Initializing Drawer Layout and ActionBarToggle
+    final ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
+      this,
+      drawerLayout,
+      toolbar,
+      R.string.drawer_open,
+      R.string.drawer_close) {
+
+      @Override
+      public void onDrawerClosed(View drawerView) {
+        super.onDrawerClosed(drawerView);
+      }
+
+      @Override
+      public void onDrawerOpened(View drawerView) {
+        super.onDrawerOpened(drawerView);
+      }
+    };
+    drawerLayout.setDrawerListener(drawerToggle);
+    drawerToggle.syncState();
   }
 
   @Override
@@ -101,65 +118,11 @@ public class MainActivity extends AppCompatActivity {
     super.onResume();
   }
 
-  private void setupNavigationDrawer() {
-    DRAWER_ITEMS = new NavigationDrawerItem[]{
-      NavigationMenuItem.create(NavigationDrawerItemConstants.NOTES_ID, NavigationDrawerItemConstants.NOTES_NAME, "ic_drawer_note", true, true, this),
-      NavigationMenuItem.create(NavigationDrawerItemConstants.CALENDAR_ID, NavigationDrawerItemConstants.CALENDAR_NAME, "ic_drawer_calendar", true, true, this),
-      NavigationMenuItem.create(NavigationDrawerItemConstants.TRASH_ID, NavigationDrawerItemConstants.TRASH_NAME, "ic_drawer_trash", true, true, this),
-      NavigationMenuItem.create(NavigationDrawerItemConstants.SETTINGS_ID, NavigationDrawerItemConstants.SETTINGS_NAME, "ic_drawer_settings", true, true, this),
-    };
-
-    title = drawerTitle = getTitle();
-
-    drawerLayout = (DrawerLayout) findViewById(R.id.main_$_drawer_layout);
-    drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-    drawerLayout.setFocusableInTouchMode(false);
-
-    drawerContainer = (LinearLayout) findViewById(R.id.main_$_linearlayout_container);
-
-    drawerList = (ListView) findViewById(R.id.main_$_listview_items);
-    drawerList.setAdapter(new NavigationDrawerAdapter(this, R.layout.navdrawer_item, DRAWER_ITEMS));
-    drawerList.setOnItemClickListener(new DrawerItemClickListener());
-    drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
-      public void onDrawerClosed(View view) {
-        getSupportActionBar().setTitle(title);
-        invalidateOptionsMenu();
-      }
-
-      public void onDrawerOpened(View drawerView) {
-        getSupportActionBar().setTitle(drawerTitle);
-        invalidateOptionsMenu();
-      }
-    };
-    drawerLayout.setDrawerListener(drawerToggle);
-
-    photoImageView = (CircularImageView) findViewById(R.id.main_$_imageview_user);
-    if (AppPreferences.getUserPhotoFilePath() != null) {
-      displayPhoto(AppPreferences.getUserPhotoFilePath());
-    }
-
-    username = (TextView) findViewById(R.id.main_$_textview_username);
-    username.setText(AppPreferences.getUserName());
-  }
-
   private void displayPhoto(String path) {
     Picasso
       .with(this)
       .load(path)
       .into(photoImageView);
-  }
-
-  private void animateBackground() {
-    LinearLayout main = (LinearLayout) findViewById(R.id.main_$_linearlayout_animated_background);
-    Animation anim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-    main.startAnimation(anim);
-  }
-
-  private void setupActionBar() {
-    // Enable ActionBar app icon to behave as action to toggle nav drawer
-    getActionBar().setDisplayHomeAsUpEnabled(true);
-    getActionBar().setHomeButtonEnabled(true);
-    getActionBar().setTitle("Pocket Note");
   }
 
   @Override
@@ -173,11 +136,6 @@ public class MainActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home: {
-        if (drawerLayout.isDrawerOpen(drawerContainer)) {
-          closeDrawer();
-        } else {
-          openDrawer();
-        }
         break;
       }
     }
@@ -187,52 +145,11 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onPostCreate(Bundle savedInstanceState) {
     super.onPostCreate(savedInstanceState);
-    // Sync the toggle state after onRestoreInstanceState has occurred.
-    drawerToggle.syncState();
   }
 
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
-    // Pass any configuration change to the drawer toggles
-    drawerToggle.onConfigurationChanged(newConfig);
-  }
-
-  private void openDrawer() {
-    username.setText(AppPreferences.getUserName());
-    drawerLayout.openDrawer(drawerContainer);
-  }
-
-  private void closeDrawer() {
-    username.setText(AppPreferences.getUserName());
-    drawerLayout.closeDrawer(drawerContainer);
-  }
-
-  @Override
-  public void onBackPressed() {
-    if (!drawerLayout.isDrawerOpen(drawerContainer)) {
-      openDrawer();
-    } else {
-      closeDrawer();
-      super.onBackPressed();
-    }
-  }
-
-  private void swapFragment(int i, int j) {
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
-    transaction.hide(fragments[i]);
-    transaction.show(fragments[j]);
-    fragments[j].onResume();
-    transaction.commit();
-  }
-
-  private void selectItem(int position) {
-    if (position != fragIndex) {
-      swapFragment(fragIndex, position);
-    }
-    fragIndex = position;
-    closeDrawer();
   }
 
   @Override
@@ -256,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
           break;
       }
     }
-    fragments[fragIndex].onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
@@ -292,31 +208,5 @@ public class MainActivity extends AppCompatActivity {
       cursor.close();
     }
     return result;
-  }
-
-  private class NavigationDrawerItemConstants {
-
-    public static final int NOTES_ID = 99;
-    public static final String NOTES_NAME = "Notes";
-    public static final int CALENDAR_ID = 100;
-    public static final String CALENDAR_NAME = "Calendar";
-    public static final int TRASH_ID = 101;
-    public static final String TRASH_NAME = "Trash";
-    public static final int SETTINGS_ID = 102;
-    public static final String SETTINGS_NAME = "Settings";
-    private NavigationDrawerItemConstants() {
-      throw new AssertionError("Constructor is private!");
-    }
-  }
-
-  /**
-   * The click listener for ListView in the navigation drawer
-   */
-  private class DrawerItemClickListener implements ListView.OnItemClickListener {
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      supportInvalidateOptionsMenu();
-      selectItem(position);
-    }
   }
 }

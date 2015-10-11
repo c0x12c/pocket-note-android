@@ -69,7 +69,7 @@ public class CalendarFragment extends BaseFragment implements View.OnTouchListen
 
   private String savedSearchQuery;
 
-  public static CalendarFragment fragment() {
+  public static CalendarFragment instance() {
     return new CalendarFragment();
   }
 

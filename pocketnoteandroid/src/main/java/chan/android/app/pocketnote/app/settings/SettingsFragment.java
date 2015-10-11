@@ -68,7 +68,7 @@ public class SettingsFragment extends Fragment {
 
   private String photoPath;
 
-  public static SettingsFragment newInstance() {
+  public static SettingsFragment instance() {
     return new SettingsFragment();
   }
 
