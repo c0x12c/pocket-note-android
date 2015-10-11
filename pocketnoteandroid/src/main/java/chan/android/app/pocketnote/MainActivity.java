@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
     });
 
 
-    // Initializing Drawer Layout and ActionBarToggle
     final ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
       this,
       drawerLayout,

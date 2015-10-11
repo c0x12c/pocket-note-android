@@ -75,7 +75,8 @@ public class NotesFragment extends BaseFragment implements LoaderManager.LoaderC
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     menu.clear();
     inflater.inflate(R.menu.notes, menu);
-    SearchView searchView = (SearchView) menu.findItem(R.id.notes_menu_$_search).getActionView();
+    /*
+    SearchView searchView = (SearchView) menu.findItem(R.id.notes___search).getActionView();
     SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
@@ -109,13 +110,14 @@ public class NotesFragment extends BaseFragment implements LoaderManager.LoaderC
       }
     };
     searchView.setOnQueryTextListener(listener);
+    */
     super.onCreateOptionsMenu(menu, inflater);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.notes_menu_$_add:
+      case R.id.notes___add:
         startActivity(new Intent(getActivity(), EditNoteActivity.class));
         break;
     }
@@ -133,14 +135,24 @@ public class NotesFragment extends BaseFragment implements LoaderManager.LoaderC
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    Logger.e("NoteFragment.onCreateView()");
-    View root = inflater.inflate(R.layout.notes, container, false);
+    final View root = inflater.inflate(
+      R.layout.notes, container, false);
+    viewFlipper = (ViewFlipper) root.findViewById(
+      R.id.notes___viewflipper);
+    linearLayoutEmpty = (LinearLayout) root.findViewById(
+      R.id.notes___linearlayout_empty);
+    gridView = (GridView) root.findViewById(
+      R.id.notes___gridview);
+    listView = (ListView) root.findViewById(
+      R.id.notes___listview);
+    optionButton = (ImageView) root.findViewById(
+      R.id.notes___imageview_sticky);
+    return root;
+  }
 
-    // View flipper to flip between list view and grid view
-    viewFlipper = (ViewFlipper) root.findViewById(R.id.notes_$_viewflipper);
-
+  @Override
+  public void onViewCreated(View view, Bundle bundle) {
     // Empty layout click add note
-    linearLayoutEmpty = (LinearLayout) root.findViewById(R.id.notes_$_linearlayout_empty);
     linearLayoutEmpty.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -155,21 +167,21 @@ public class NotesFragment extends BaseFragment implements LoaderManager.LoaderC
     layoutAnimationController = AnimationUtils.loadLayoutAnimation(getActivity(), R.anim.notes_layout_anim);
 
     // Prepare grid view
-    gridView = (GridView) root.findViewById(R.id.notes_$_gridview);
+
     gridView.setAdapter(gridAdapter);
     gridView.setOnItemLongClickListener(new OnLongClickNoteListener(this, gridAdapter));
     gridView.setOnItemClickListener(new OnClickNoteListener(this, gridAdapter));
     gridView.setLayoutAnimation(layoutAnimationController);
 
     // Prepare list view
-    listView = (ListView) root.findViewById(R.id.notes_$_listview);
+
     listView.setAdapter(listAdapter);
     listView.setOnItemLongClickListener(new OnLongClickNoteListener(this, listAdapter));
     listView.setOnItemClickListener(new OnClickNoteListener(this, listAdapter));
     listView.setLayoutAnimation(layoutAnimationController);
 
     // To change view or sort item
-    optionButton = (ImageView) root.findViewById(R.id.notes_$_imageview_sticky);
+
     optionButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -199,8 +211,6 @@ public class NotesFragment extends BaseFragment implements LoaderManager.LoaderC
 
     // Make sure we update from preferences
     checkPreferences();
-
-    return root;
   }
 
   public void onResume() {

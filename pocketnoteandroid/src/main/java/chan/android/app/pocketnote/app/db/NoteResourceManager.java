@@ -69,8 +69,10 @@ public class NoteResourceManager implements NoteResource {
           cv.put(NoteDbTable.COLUMN_CALENDAR_YEAR, note.getYear());
           Uri uri = resolver.insert(NoteContentProvider.CONTENT_URI, cv);
           Cursor cursor = resolver.query(uri, NoteContentProvider.COLUMNS, null, null, null);
+          cursor.moveToFirst();
           subscriber.onNext(fromCursor(cursor));
           subscriber.onCompleted();
+          cursor.close();
         } catch (Exception e) {
           subscriber.onError(e);
         }

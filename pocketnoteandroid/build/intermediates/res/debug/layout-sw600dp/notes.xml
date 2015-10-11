@@ -7,12 +7,12 @@
 
 
     <ViewFlipper
-            android:id="@+id/notes_$_viewflipper"
+            android:id="@+id/notes___viewflipper"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <ListView
-                android:id="@+id/notes_$_listview"
+                android:id="@+id/notes___listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
@@ -24,7 +24,7 @@
                 />
 
         <GridView
-                android:id="@+id/notes_$_gridview"
+                android:id="@+id/notes___gridview"
                 android:numColumns="5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -39,7 +39,7 @@
                 android:paddingTop="2dip"/>
 
         <LinearLayout
-                android:id="@+id/notes_$_linearlayout_empty"
+                android:id="@+id/notes___linearlayout_empty"
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:background="@drawable/setting_layout_select"
@@ -78,7 +78,7 @@
     </ViewFlipper>
 
     <ImageView
-            android:id="@+id/notes_$_imageview_sticky"
+            android:id="@+id/notes___imageview_sticky"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

@@ -4,11 +4,12 @@ package chan.android.app.pocketnote.app.calendar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.*;
 import android.widget.*;
-import chan.android.app.pocketnote.app.BaseFragment;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.AppPreferences;
+import chan.android.app.pocketnote.app.BaseFragment;
 import chan.android.app.pocketnote.app.Note;
 import chan.android.app.pocketnote.app.notes.EditNoteActivity;
 import chan.android.app.pocketnote.app.settings.PasswordDialogFragment;
@@ -85,7 +86,7 @@ public class CalendarFragment extends BaseFragment implements View.OnTouchListen
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     menu.clear();
     inflater.inflate(R.menu.calendar, menu);
-    SearchView searchView = (SearchView) menu.findItem(R.id.calendar_menu_$_search).getActionView();
+    SearchView searchView = (SearchView) menu.findItem(R.id.calendar___search).getActionView();
     SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {

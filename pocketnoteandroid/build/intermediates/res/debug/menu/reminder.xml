@@ -1,17 +1,19 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-            android:id="@+id/reminder_menu_$_dismiss"
-            android:showAsAction="always|withText"
-            android:icon="@drawable/ic_action_dismiss"
-            android:orderInCategory="0"
-            android:title="Dismiss"/>
+  <item
+    android:id="@+id/reminder___dismiss"
+    app:showAsAction="always|withText"
+    android:icon="@drawable/ic_action_dismiss"
+    android:orderInCategory="0"
+    android:title="Dismiss"/>
 
-    <item
-            android:id="@+id/reminder_menu_$_info"
-            android:showAsAction="always"
-            android:icon="@drawable/ic_action_calendar_info"
-            android:orderInCategory="1"
-            android:title="Info"/>
+  <item
+    android:id="@+id/reminder___info"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_action_calendar_info"
+    android:orderInCategory="1"
+    android:title="Info"/>
 
 </menu><!-- From: file:/Users/chan/Documents/workspace-contract/pocket-note-android/pocketnoteandroid/src/main/res/menu/reminder.xml -->

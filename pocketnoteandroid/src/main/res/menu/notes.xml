@@ -1,19 +1,20 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-            android:id="@+id/notes_menu_$_search"
-            android:showAsAction="always"
-            android:icon="@drawable/ic_drawer_search"
-            android:actionViewClass="android.widget.SearchView"
-            android:orderInCategory="0"
-            android:title="Search"/>
+  <item
+    android:id="@+id/notes___search"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_drawer_search"
+    android:actionViewClass="android.support.v7.widget.SearchView"
+    android:orderInCategory="0"
+    android:title="Search"/>
 
-    <item
-            android:id="@+id/notes_menu_$_add"
-            android:showAsAction="always"
-            android:icon="@drawable/ic_action_content_edit"
-            android:orderInCategory="1"
-            android:title="Add"/>
-
+  <item
+    android:id="@+id/notes___add"
+    app:showAsAction="always"
+    android:icon="@drawable/ic_action_content_edit"
+    android:orderInCategory="1"
+    android:title="Add"/>
 
 </menu>

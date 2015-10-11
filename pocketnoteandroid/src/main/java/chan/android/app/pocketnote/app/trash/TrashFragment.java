@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.SearchView;
 import android.view.*;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 import chan.android.app.pocketnote.R;
 import chan.android.app.pocketnote.app.BaseFragment;
 import chan.android.app.pocketnote.app.Note;
@@ -51,7 +56,7 @@ public class TrashFragment extends BaseFragment implements LoaderManager.LoaderC
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     menu.clear();
     inflater.inflate(R.menu.trash, menu);
-    SearchView searchView = (SearchView) menu.findItem(R.id.trash_menu_$_action_search).getActionView();
+    SearchView searchView = (SearchView) menu.findItem(R.id.trash___search).getActionView();
     SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
@@ -88,7 +93,7 @@ public class TrashFragment extends BaseFragment implements LoaderManager.LoaderC
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.trash_menu_$_action_delete_all:
+      case R.id.trash___delete_all:
         final ConfirmDialogFragment d = new ConfirmDialogFragment();
         d.setOnConfirmListener(new ConfirmDialogFragment.OnConfirmListener() {
           @Override
@@ -155,10 +160,10 @@ public class TrashFragment extends BaseFragment implements LoaderManager.LoaderC
     // Do nothing
   }
 
-  private static class ViewHolder {
-    TextView title;
-    TextView date;
-    LinearLayout parent;
+  static class ViewHolder {
+    final TextView title;
+    final TextView date;
+    final LinearLayout parent;
 
     public ViewHolder(View v) {
       parent = (LinearLayout) v.findViewById(

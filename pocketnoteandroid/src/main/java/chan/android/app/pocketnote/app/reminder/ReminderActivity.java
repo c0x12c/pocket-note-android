@@ -136,7 +136,7 @@ public class ReminderActivity extends BaseActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.reminder_menu_$_dismiss: {
+      case R.id.reminder___dismiss: {
         final ConfirmDialogFragment d = ConfirmDialogFragment.fragment(
           "Dismiss reminder for this event",
           "Cancel",
@@ -172,7 +172,7 @@ public class ReminderActivity extends BaseActivity {
       }
 
       // TODO: Should we display more detail message?
-      case R.id.reminder_menu_$_info:
+      case R.id.reminder___info:
         break;
     }
     return super.onOptionsItemSelected(item);
