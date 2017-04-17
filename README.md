@@ -3,7 +3,7 @@ pocket-note-android
 
 Pocket Note is a simple note application with many useful utilities.
 
-##Features
+## Features
 
 * Completely free, no ads!
 * Multiple colors for creating note.
@@ -18,7 +18,7 @@ Pocket Note is a simple note application with many useful utilities.
 
 Download from Google Play Store: https://play.google.com/store/apps/details?id=chan.android.app.pocketnote
 
-##Screenshots
+## Screenshots
 
 <img src="https://raw.githubusercontent.com/channguyen/pocket-note-android/master/appstore/sc1.png">
 <img src="https://raw.githubusercontent.com/channguyen/pocket-note-android/master/appstore/sc2.png">
@@ -37,13 +37,13 @@ Download from Google Play Store: https://play.google.com/store/apps/details?id=c
 <img src="https://raw.githubusercontent.com/channguyen/pocket-note-android/master/appstore/sc15.png">
 <img src="https://raw.githubusercontent.com/channguyen/pocket-note-android/master/appstore/sc16.png">
 
-##Developed By
+## Developed By
 
 * Chan Nguyen - <atbl1511@gmail.com>
 
 
 
-##License
+## License
 
 
     Copyright 2014 Chan Nguyen
